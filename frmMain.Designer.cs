@@ -37,10 +37,15 @@
             this.browseRemoteFolderButton = new System.Windows.Forms.Button();
             this.rtbConsole = new System.Windows.Forms.RichTextBox();
             this.progressLabel = new System.Windows.Forms.Label();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // uploadButton
             // 
+            this.uploadButton.Enabled = false;
             this.uploadButton.Location = new System.Drawing.Point(708, 77);
             this.uploadButton.Name = "uploadButton";
             this.uploadButton.Size = new System.Drawing.Size(75, 23);
@@ -117,11 +122,37 @@
             this.progressLabel.TabIndex = 8;
             this.progressLabel.Text = "Progress";
             // 
+            // toolStrip
+            // 
+            this.toolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1,
+            this.toolStripSeparator1});
+            this.toolStrip.Location = new System.Drawing.Point(0, 293);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(800, 25);
+            this.toolStrip.TabIndex = 9;
+            this.toolStrip.Text = "toolStrip1";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(86, 22);
+            this.toolStripLabel1.Text = "toolStripLabel1";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 280);
+            this.ClientSize = new System.Drawing.Size(800, 318);
+            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.rtbConsole);
             this.Controls.Add(this.browseRemoteFolderButton);
@@ -133,6 +164,8 @@
             this.Controls.Add(this.uploadButton);
             this.Name = "frmMain";
             this.Text = "File Uploader With Resume";
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -149,6 +182,9 @@
         private System.Windows.Forms.Button browseRemoteFolderButton;
         private System.Windows.Forms.RichTextBox rtbConsole;
         private System.Windows.Forms.Label progressLabel;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

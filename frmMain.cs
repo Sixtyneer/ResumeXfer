@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,26 +18,65 @@ namespace UploaderWithResume
             using (var openFileDialog = new OpenFileDialog()) 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                     localFilePathTextBox.Text = openFileDialog.FileName;
+
+            if (remoteFilePathTextBox.Text != "" && localFilePathTextBox.Text != "")
+                uploadButton.Enabled = true;
+            else uploadButton.Enabled = false;
         }
 
         private void browseRemoteFolderButton_Click(object sender, EventArgs e)
         {
             using (var folderBrowserDialog = new FolderBrowserDialog())
-            {
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-                {
                     remoteFilePathTextBox.Text = folderBrowserDialog.SelectedPath;
-                }
-            }
+
+            if (remoteFilePathTextBox.Text != "" && localFilePathTextBox.Text != "")
+                uploadButton.Enabled = true;
+            else uploadButton.Enabled = false;
         }
+        
 
         private async void uploadButton_Click(object sender, EventArgs e)
         {
             string localFilePath = localFilePathTextBox.Text;
             string remoteFolderPath = remoteFilePathTextBox.Text;
-            string remoteFilePath = Path.Combine(remoteFolderPath, Path.GetFileName(localFilePath));
 
-            await UploadFileWithResume(localFilePath, remoteFilePath);
+            if (ValidatePaths())
+            {
+                string remoteFilePath = Path.Combine(remoteFolderPath, Path.GetFileName(localFilePath));
+
+                await UploadFileWithResume(localFilePath, remoteFilePath);
+            }
+            
+        }
+        private bool ValidatePaths()
+        {
+            // Check if both paths are valid
+            bool isLocalPathValid = IsValidLocalFilePath(localFilePathTextBox.Text);
+            bool isRemotePathValid = IsValidRemoteFolderPath(remoteFilePathTextBox.Text);
+
+            uploadButton.Enabled = isLocalPathValid && isRemotePathValid;
+
+            if (!isLocalPathValid)
+            {
+                MessageBox.Show("The local file path is invalid or the file does not exist.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (!isRemotePathValid)
+            {
+                MessageBox.Show("The remote folder path is invalid or the directory does not exist.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsValidLocalFilePath(string localFilePath)
+        {
+            return Path.IsPathRooted(localFilePath) && File.Exists(localFilePath);
+        }
+        private bool IsValidRemoteFolderPath(string remoteFolderPath)
+        {
+            return Path.IsPathRooted(remoteFolderPath) && Directory.Exists(remoteFolderPath);
         }
 
         private async Task UploadFileWithResume(string localFilePath, string remoteFilePath)
@@ -65,7 +98,8 @@ namespace UploaderWithResume
                     localStream = new FileStream(localFilePath, FileMode.Open, FileAccess.Read);
                     localStream.Seek(totalBytesUploaded, SeekOrigin.Begin);
 
-                    byte[] buffer = new byte[1024 * 1024]; // 1MB chunk size
+                    // 1MB chunk size
+                    byte[] buffer = new byte[1024 * 1024]; 
                     int bytesRead;
                     Stopwatch stopwatch = Stopwatch.StartNew();
 
@@ -74,8 +108,7 @@ namespace UploaderWithResume
                         try
                         {
                             bytesRead = await localStream.ReadAsync(buffer, 0, buffer.Length);
-                            if (bytesRead == 0)
-                                break;
+                            if (bytesRead == 0) break;
 
                             using (FileStream remoteStream = new FileStream(remoteFilePath, FileMode.Append, FileAccess.Write, FileShare.None))
                             {
@@ -84,9 +117,9 @@ namespace UploaderWithResume
 
                             totalBytesUploaded += bytesRead;
 
-                            // Calculate speed
+                            // Calculate speed (in KB/s)
                             double elapsedSeconds = stopwatch.Elapsed.TotalSeconds;
-                            double speed = totalBytesUploaded / elapsedSeconds / 1024; // Speed in KB/s
+                            double speed = totalBytesUploaded / elapsedSeconds / 1024;
 
                             // Calculate kilobytes
                             double totalKilobytesUploaded = totalBytesUploaded / 1024.0;
