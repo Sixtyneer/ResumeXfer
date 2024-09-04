@@ -17,10 +17,10 @@ This project provides a Windows Forms application that allows for file uploads w
 ## Getting Started
 
 1. **Clone the Repository**:
-   git clone https://github.com/yourusername/UploaderWithResume.git
+   git clone https://github.com/Stromnatic/ResumeXfer.git
 
 3. **Open the Project**:
-   Open the solution file (UploaderWithResume.sln) in Visual Studio.
+   Open the solution file (ResumeXfer.sln) in Visual Studio.
 
 4. **Build the Solution**:
    Build the solution using Visual Studio to restore any necessary packages and compile the project.
