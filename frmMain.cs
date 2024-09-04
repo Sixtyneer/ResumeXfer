@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UploaderWithResume
+namespace ResumeXfer
 {
     public partial class frmMain : Form
     {
@@ -13,30 +13,30 @@ namespace UploaderWithResume
             InitializeComponent();
         }
 
-        private void browseLocalFileButton_Click(object sender, EventArgs e)
+        private void BrowseLocalFileButton_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog()) 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                     localFilePathTextBox.Text = openFileDialog.FileName;
 
-            if (remoteFilePathTextBox.Text != "" && localFilePathTextBox.Text != "")
+            if (remoteFilePathTextBox.Text != string.Empty && localFilePathTextBox.Text != string.Empty)
                 uploadButton.Enabled = true;
             else uploadButton.Enabled = false;
         }
 
-        private void browseRemoteFolderButton_Click(object sender, EventArgs e)
+        private void BrowseRemoteFolderButton_Click(object sender, EventArgs e)
         {
             using (var folderBrowserDialog = new FolderBrowserDialog())
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                     remoteFilePathTextBox.Text = folderBrowserDialog.SelectedPath;
 
-            if (remoteFilePathTextBox.Text != "" && localFilePathTextBox.Text != "")
+            if (remoteFilePathTextBox.Text != string.Empty && localFilePathTextBox.Text != string.Empty)
                 uploadButton.Enabled = true;
             else uploadButton.Enabled = false;
         }
         
 
-        private async void uploadButton_Click(object sender, EventArgs e)
+        private async void UploadButton_Click(object sender, EventArgs e)
         {
             string localFilePath = localFilePathTextBox.Text;
             string remoteFolderPath = remoteFilePathTextBox.Text;
@@ -44,10 +44,8 @@ namespace UploaderWithResume
             if (ValidatePaths())
             {
                 string remoteFilePath = Path.Combine(remoteFolderPath, Path.GetFileName(localFilePath));
-
                 await UploadFileWithResume(localFilePath, remoteFilePath);
             }
-            
         }
         private bool ValidatePaths()
         {
@@ -60,11 +58,13 @@ namespace UploaderWithResume
             if (!isLocalPathValid)
             {
                 MessageBox.Show("The local file path is invalid or the file does not exist.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                uploadButton.Enabled = true;
                 return false;
             }
             if (!isRemotePathValid)
             {
-                MessageBox.Show("The remote folder path is invalid or the directory does not exist.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("The remote folder path is invalid or the directory does not exist.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+                uploadButton.Enabled = true;
                 return false;
             }
             return true;
