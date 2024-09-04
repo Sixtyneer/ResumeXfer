@@ -1,4 +1,4 @@
-# UploaderWithResume
+# ResumeXfer
 
 This project provides a Windows Forms application that allows for file uploads with resume functionality. The application is designed to upload a file from the local system to a specified remote directory, supporting interrupted transfers by resuming from where it left off.
 
