@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,6 +12,16 @@ namespace ResumeXfer
         public frmMain()
         {
             InitializeComponent();
+
+            // Populate the ComboBox with buffer size options in KB
+            toolStripCB_buffersize.Items.AddRange(new object[] {
+                "512 KB",
+                "1 MB",
+                "2 MB",
+                "4 MB",
+                "8 MB"
+            });
+            toolStripCB_buffersize.SelectedIndex = 1; // Default to "1 MB"
         }
 
         private void BrowseLocalFileButton_Click(object sender, EventArgs e)
@@ -18,10 +29,7 @@ namespace ResumeXfer
             using (var openFileDialog = new OpenFileDialog()) 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                     localFilePathTextBox.Text = openFileDialog.FileName;
-
-            if (remoteFilePathTextBox.Text != string.Empty && localFilePathTextBox.Text != string.Empty)
-                uploadButton.Enabled = true;
-            else uploadButton.Enabled = false;
+            ValidateUploadButton();
         }
 
         private void BrowseRemoteFolderButton_Click(object sender, EventArgs e)
@@ -30,9 +38,7 @@ namespace ResumeXfer
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                     remoteFilePathTextBox.Text = folderBrowserDialog.SelectedPath;
 
-            if (remoteFilePathTextBox.Text != string.Empty && localFilePathTextBox.Text != string.Empty)
-                uploadButton.Enabled = true;
-            else uploadButton.Enabled = false;
+            ValidateUploadButton();
         }
         
 
@@ -46,6 +52,12 @@ namespace ResumeXfer
                 string remoteFilePath = Path.Combine(remoteFolderPath, Path.GetFileName(localFilePath));
                 await UploadFileWithResume(localFilePath, remoteFilePath);
             }
+        }
+        private void ValidateUploadButton() 
+        {
+            if (remoteFilePathTextBox.Text != string.Empty && localFilePathTextBox.Text != string.Empty)
+                uploadButton.Enabled = true;
+            else uploadButton.Enabled = false;
         }
         private bool ValidatePaths()
         {
@@ -69,7 +81,31 @@ namespace ResumeXfer
             }
             return true;
         }
+        private int GetBufferSize() 
+        { 
+            int bufferSize = 1024 * 1024; // Default 1MB;
+            string selectedBufferSize = toolStripCB_buffersize.SelectedItem.ToString();
 
+            switch (selectedBufferSize)
+            {
+                case "512 KB":
+                    bufferSize = 512 * 1024;
+                    break;
+                case "1 MB":
+                    bufferSize = 1024 * 1024;
+                    break;
+                case "2 MB":
+                    bufferSize = 2 * 1024 * 1024;
+                    break;
+                case "4 MB":
+                    bufferSize = 4 * 1024 * 1024;
+                    break;
+                case "8 MB":
+                    bufferSize = 8 * 1024 * 1024;
+                    break;
+            }
+            return bufferSize;
+        }
         private bool IsValidLocalFilePath(string localFilePath)
         {
             return Path.IsPathRooted(localFilePath) && File.Exists(localFilePath);
@@ -98,8 +134,8 @@ namespace ResumeXfer
                     localStream = new FileStream(localFilePath, FileMode.Open, FileAccess.Read);
                     localStream.Seek(totalBytesUploaded, SeekOrigin.Begin);
 
-                    // 1MB chunk size
-                    byte[] buffer = new byte[1024 * 1024]; 
+                    // 1MB buffer size
+                    byte[] buffer = new byte[GetBufferSize()]; 
                     int bytesRead;
                     Stopwatch stopwatch = Stopwatch.StartNew();
 
@@ -165,6 +201,48 @@ namespace ResumeXfer
             {
                 rtbConsole.Text = DateTime.Now + " Error: " + ex.Message;
             }
+        }
+        private void localFilePathTextBox_TextChanged(object sender, EventArgs e)
+        {
+            ValidateUploadButton();
+        }
+
+        private void remoteFilePathTextBox_TextChanged(object sender, EventArgs e)
+        {
+            ValidateUploadButton();
+        }
+        // Constants to handle the dragging
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        // Import necessary functions from user32.dll
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+        private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void toolStripCB_buffersize_MouseEnter(object sender, EventArgs e)
+        {
+            string buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
+            toolTip1.Show(buffer_tooltip_text, this,PointToClient(MousePosition).X,PointToClient(MousePosition).Y);
+        }
+
+        private void toolStripCB_buffersize_MouseLeave(object sender, EventArgs e)
+        {
+            toolTip1.Hide(this);
         }
     }
 }
