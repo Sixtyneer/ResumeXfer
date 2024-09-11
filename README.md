@@ -32,14 +32,6 @@ This project provides a Windows Forms application that allows for file uploads w
   - Upload the File: Once both paths are selected, click the "Upload" button. The progress bar will start filling up, showing the current progress of the upload. You will also see the upload speed and the total number of bytes uploaded.
   - Handling Disconnections: If the connection is lost during the upload, the application will automatically retry after a 5-second delay and continue from where it left off.
 
-## Customization
-
-  Adjusting the Chunk Size
-  By default, the application uploads files in 1MB chunks. To modify the chunk size:
-    - Open frmMain.cs.
-    - Locate the following line in the UploadFileWithResume method:
-       **byte[] buffer = new byte[1024 * 1024]; // 1MB chunk size**
-    - Adjust the 1024 * 1024 value to your desired chunk size (in bytes).
 
 ## Known Issues
 
