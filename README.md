@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/bf84f5c0-24c1-4b7f-a553-6779d9e929ff)
+
 # ResumeXfer
 
 This project provides a Windows Forms application that allows for file uploads with resume functionality. The application is designed to upload a file from the local system to a specified remote directory, supporting interrupted transfers by resuming from where it left off.
