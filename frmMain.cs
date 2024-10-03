@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -9,21 +10,42 @@ namespace ResumeXfer
 {
     public partial class frmMain : Form
     {
+        int buffersize = 1024 * 1024;
         public frmMain()
         {
             InitializeComponent();
-
-            // Populate the ComboBox with buffer size options in KB
-            toolStripCB_buffersize.Items.AddRange(new object[] {
-                "512 KB",
-                "1 MB",
-                "2 MB",
-                "4 MB",
-                "8 MB"
-            });
-            toolStripCB_buffersize.SelectedIndex = 1; // Default to "1 MB"
+            Coloring();
+            menuStrip1.Renderer = new menuStripRender();
         }
+        private void Coloring() 
+        {
+            panelTop.BackColor = BackColor;
+            menuStrip1.BackColor = BackColor;
 
+            // Set other properties (like text and font)
+            browseLocalFileButton.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            browseRemoteFolderButton.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+
+            // Add hover effect
+            browseLocalFileButton.MouseEnter += (sender, e) => {
+                browseLocalFileButton.BackColor = Color.FromArgb(50, 120, 70); // Lighter green on hover
+                browseLocalFileButton.FlatAppearance.BorderColor = Color.FromArgb(70, 150, 90); // Lighter green border on hover
+            };
+            browseLocalFileButton.MouseLeave += (sender, e) => {
+                browseLocalFileButton.BackColor = Color.FromArgb(34, 85, 50); // Revert back to original dark green color
+                browseLocalFileButton.FlatAppearance.BorderColor = Color.FromArgb(40, 100, 60); // Revert back to original border color
+            };
+            browseRemoteFolderButton.MouseEnter += (sender, e) => {
+                browseRemoteFolderButton.BackColor = Color.FromArgb(50, 120, 70); // Lighter green on hover
+                browseRemoteFolderButton.FlatAppearance.BorderColor = Color.FromArgb(70, 150, 90); // Lighter green border on hover
+            };
+            browseRemoteFolderButton.MouseLeave += (sender, e) => {
+                browseRemoteFolderButton.BackColor = Color.FromArgb(34, 85, 50); // Revert back to original dark green color
+                browseRemoteFolderButton.FlatAppearance.BorderColor = Color.FromArgb(40, 100, 60); // Revert back to original border color
+            };
+
+
+        }
         private void BrowseLocalFileButton_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog()) 
@@ -44,6 +66,7 @@ namespace ResumeXfer
 
         private async void UploadButton_Click(object sender, EventArgs e)
         {
+            toolTip1.Hide(this);
             string localFilePath = localFilePathTextBox.Text;
             string remoteFolderPath = remoteFilePathTextBox.Text;
 
@@ -81,31 +104,6 @@ namespace ResumeXfer
             }
             return true;
         }
-        private int GetBufferSize() 
-        { 
-            int bufferSize = 1024 * 1024; // Default 1MB;
-            string selectedBufferSize = toolStripCB_buffersize.SelectedItem.ToString();
-
-            switch (selectedBufferSize)
-            {
-                case "512 KB":
-                    bufferSize = 512 * 1024;
-                    break;
-                case "1 MB":
-                    bufferSize = 1024 * 1024;
-                    break;
-                case "2 MB":
-                    bufferSize = 2 * 1024 * 1024;
-                    break;
-                case "4 MB":
-                    bufferSize = 4 * 1024 * 1024;
-                    break;
-                case "8 MB":
-                    bufferSize = 8 * 1024 * 1024;
-                    break;
-            }
-            return bufferSize;
-        }
         private bool IsValidLocalFilePath(string localFilePath)
         {
             return Path.IsPathRooted(localFilePath) && File.Exists(localFilePath);
@@ -135,9 +133,18 @@ namespace ResumeXfer
                     localStream.Seek(totalBytesUploaded, SeekOrigin.Begin);
 
                     // 1MB buffer size
-                    byte[] buffer = new byte[GetBufferSize()]; 
+                    byte[] buffer = new byte[buffersize]; 
                     int bytesRead;
                     Stopwatch stopwatch = Stopwatch.StartNew();
+
+                    progressBar1.Visible = true;
+                    speedLabel.Visible = true;
+                    progressLabel.Visible = true;
+                    browseLocalFileButton.Enabled = false;
+                    browseRemoteFolderButton.Enabled = false;
+                    uploadButton.Enabled = false;
+                    localFilePathTextBox.Visible = true;
+                    remoteFilePathTextBox.Visible = true;
 
                     while (totalBytesUploaded < fileLength)
                     {
@@ -176,6 +183,7 @@ namespace ResumeXfer
                             {
                                 progressLabel.Text = $"{totalKilobytesUploaded:F2} KB / {totalKilobytes:F2} KB uploaded";
                             }));
+
                         }
                         catch (IOException)
                         {
@@ -194,12 +202,22 @@ namespace ResumeXfer
                 {
                     localStream?.Dispose();
                 }
-
                 rtbConsole.Text = DateTime.Now + " Upload completed successfully.";
             }
             catch (Exception ex)
             {
                 rtbConsole.Text = DateTime.Now + " Error: " + ex.Message;
+            }
+            finally
+            {
+                progressBar1.Visible = false;
+                speedLabel.Visible = false;
+                progressLabel.Visible = false;
+                browseLocalFileButton.Enabled = true;
+                browseRemoteFolderButton.Enabled = true;
+                uploadButton.Enabled = true;
+                localFilePathTextBox.Visible = false;
+                remoteFilePathTextBox.Visible = false;
             }
         }
         private void localFilePathTextBox_TextChanged(object sender, EventArgs e)
@@ -220,7 +238,7 @@ namespace ResumeXfer
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
-        private void menuStrip1_MouseDown(object sender, MouseEventArgs e)
+        private void frmMain_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -228,21 +246,84 @@ namespace ResumeXfer
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-
-        private void btn_close_Click(object sender, EventArgs e)
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            //wip
+            //Need to handle the uploading process when the user qiut the application!
+            var res = MessageBox.Show("Are you sure want to Quit the application?", "Upload is in progress!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res == DialogResult.Yes)
+            {
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Ok, cool.");
+            }
         }
 
-        private void toolStripCB_buffersize_MouseEnter(object sender, EventArgs e)
+
+        private void bufferSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
-            toolTip1.Show(buffer_tooltip_text, this,PointToClient(MousePosition).X,PointToClient(MousePosition).Y);
+            ToolStripMenuItem clickedItem = sender as ToolStripMenuItem;
+            foreach (ToolStripMenuItem item in clickedItem.GetCurrentParent().Items)
+            {
+                if (item == clickedItem) 
+                {
+                    clickedItem.Checked = true;
+                    switch (clickedItem.Text)
+                    {
+                        case "512 KB": buffersize = 512 * 1024; break;
+                        case "2 MB": buffersize = 2 * 1024 * 1024; break;
+                        case "4 MB": buffersize = 4 * 1024 * 1024; break;
+                        case "8 MB": buffersize = 8 * 1024 * 1024; break;
+                        default: buffersize = 1024 * 1024; break; //Default 1 MB
+                    }
+                    continue; 
+                }
+                item.Checked = false;
+            }
         }
 
-        private void toolStripCB_buffersize_MouseLeave(object sender, EventArgs e)
+        private void consoleOutputToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!rtbConsole.Visible)
+            {
+                rtbConsole.Show();
+                consoleOutputToolStripMenuItem.Text = "Hide Console";
+            }
+            else
+            {
+                rtbConsole.Hide(); 
+                consoleOutputToolStripMenuItem.Text = "Show Console";
+            }
+        }
+
+        private void bufferSizeToolStripMenuItem_MouseEnter(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void bufferSizeToolStripMenuItem_MouseLeave(object sender, EventArgs e)
         {
             toolTip1.Hide(this);
+        }
+
+        private void bufferSizeToolStripMenuItem_DoubleClick(object sender, EventArgs e)
+        {
+            string buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
+            toolTip1.Show(buffer_tooltip_text, this, PointToClient(MousePosition).X, PointToClient(MousePosition).Y);
+        }
+
+        private void uploadButton_MouseEnter(object sender, EventArgs e)
+        {
+            if (uploadButton.Enabled)
+                toolTip1.Show("Click to start upload.", this, PointToClient(MousePosition).X, PointToClient(MousePosition).Y);
+        }
+
+        private void uploadButton_MouseLeave(object sender, EventArgs e)
+        {
+            if (uploadButton.Enabled)
+                toolTip1.Hide(this);
         }
     }
 }
