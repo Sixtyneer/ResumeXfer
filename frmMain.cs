@@ -11,6 +11,7 @@ namespace ResumeXfer
     public partial class frmMain : Form
     {
         int buffersize = 1024 * 1024;
+        int retryCount = -1; //It means infinity
         public frmMain()
         {
             InitializeComponent();
@@ -137,14 +138,7 @@ namespace ResumeXfer
                     int bytesRead;
                     Stopwatch stopwatch = Stopwatch.StartNew();
 
-                    progressBar1.Visible = true;
-                    speedLabel.Visible = true;
-                    progressLabel.Visible = true;
-                    browseLocalFileButton.Enabled = false;
-                    browseRemoteFolderButton.Enabled = false;
-                    uploadButton.Enabled = false;
-                    localFilePathTextBox.Visible = true;
-                    remoteFilePathTextBox.Visible = true;
+                    ToggleUIControls(false);
 
                     while (totalBytesUploaded < fileLength)
                     {
@@ -210,16 +204,22 @@ namespace ResumeXfer
             }
             finally
             {
-                progressBar1.Visible = false;
-                speedLabel.Visible = false;
-                progressLabel.Visible = false;
-                browseLocalFileButton.Enabled = true;
-                browseRemoteFolderButton.Enabled = true;
-                uploadButton.Enabled = true;
-                localFilePathTextBox.Visible = false;
-                remoteFilePathTextBox.Visible = false;
+                ToggleUIControls(true);
             }
         }
+
+        private void ToggleUIControls(bool enabled)
+        {
+            progressBar1.Visible = !enabled;
+            speedLabel.Visible = !enabled;
+            progressLabel.Visible = !enabled;
+            browseLocalFileButton.Enabled = enabled;
+            browseRemoteFolderButton.Enabled = enabled;
+            uploadButton.Enabled = enabled;
+            localFilePathTextBox.Enabled = enabled;
+            remoteFilePathTextBox.Enabled = enabled;
+        }
+
         private void localFilePathTextBox_TextChanged(object sender, EventArgs e)
         {
             ValidateUploadButton();
@@ -297,17 +297,6 @@ namespace ResumeXfer
                 consoleOutputToolStripMenuItem.Text = "Show Console";
             }
         }
-
-        private void bufferSizeToolStripMenuItem_MouseEnter(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void bufferSizeToolStripMenuItem_MouseLeave(object sender, EventArgs e)
-        {
-            toolTip1.Hide(this);
-        }
-
         private void bufferSizeToolStripMenuItem_DoubleClick(object sender, EventArgs e)
         {
             string buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
@@ -316,14 +305,34 @@ namespace ResumeXfer
 
         private void uploadButton_MouseEnter(object sender, EventArgs e)
         {
-            if (uploadButton.Enabled)
-                toolTip1.Show("Click to start upload.", this, PointToClient(MousePosition).X, PointToClient(MousePosition).Y);
+            if (uploadButton.Enabled) toolTip1.Show("Start file upload", this, PointToClient(MousePosition).X, PointToClient(MousePosition).Y);
         }
 
         private void uploadButton_MouseLeave(object sender, EventArgs e)
         {
-            if (uploadButton.Enabled)
-                toolTip1.Hide(this);
+            toolTip1.Hide(this);
+        }
+
+        private void MaxRetrytoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = sender as ToolStripMenuItem;
+            foreach (ToolStripMenuItem item in clickedItem.GetCurrentParent().Items)
+            {
+                if (item == clickedItem)
+                {
+                    clickedItem.Checked = true;
+                    switch (clickedItem.Text)
+                    {
+                        case "20": retryCount = 20; break;
+                        case "50": retryCount = 50; break;
+                        case "150": retryCount = 150; break;
+                        case "300": retryCount = 300;  break;
+                        default: retryCount = -1; break; //Default Infinity
+                    }
+                    continue;
+                }
+                item.Checked = false;
+            }
         }
     }
 }

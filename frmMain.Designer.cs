@@ -47,6 +47,18 @@
             this.openLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectRemoteFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bufferSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mBToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mBToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mBToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.maximumRetriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consoleOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,12 +67,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.bufferSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mBToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mBToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mBToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -72,7 +78,7 @@
             this.uploadButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uploadButton.Enabled = false;
             this.uploadButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.uploadButton.Location = new System.Drawing.Point(508, 123);
+            this.uploadButton.Location = new System.Drawing.Point(508, 128);
             this.uploadButton.Margin = new System.Windows.Forms.Padding(0);
             this.uploadButton.Name = "uploadButton";
             this.uploadButton.Size = new System.Drawing.Size(33, 33);
@@ -85,9 +91,9 @@
             // progressBar1
             // 
             this.progressBar1.Enabled = false;
-            this.progressBar1.Location = new System.Drawing.Point(132, 129);
+            this.progressBar1.Location = new System.Drawing.Point(11, 129);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(277, 27);
+            this.progressBar1.Size = new System.Drawing.Size(436, 32);
             this.progressBar1.TabIndex = 1;
             this.progressBar1.Visible = false;
             // 
@@ -101,6 +107,7 @@
             this.speedLabel.Size = new System.Drawing.Size(81, 13);
             this.speedLabel.TabIndex = 2;
             this.speedLabel.Text = "Upload Speed: ";
+            this.speedLabel.Visible = false;
             // 
             // localFilePathTextBox
             // 
@@ -130,7 +137,7 @@
             this.browseLocalFileButton.ForeColor = System.Drawing.Color.White;
             this.browseLocalFileButton.Location = new System.Drawing.Point(11, 43);
             this.browseLocalFileButton.Name = "browseLocalFileButton";
-            this.browseLocalFileButton.Size = new System.Drawing.Size(129, 30);
+            this.browseLocalFileButton.Size = new System.Drawing.Size(154, 30);
             this.browseLocalFileButton.TabIndex = 5;
             this.browseLocalFileButton.Text = "Browse Local File";
             this.browseLocalFileButton.UseVisualStyleBackColor = false;
@@ -144,9 +151,9 @@
             this.browseRemoteFolderButton.ForeColor = System.Drawing.Color.White;
             this.browseRemoteFolderButton.Location = new System.Drawing.Point(309, 43);
             this.browseRemoteFolderButton.Name = "browseRemoteFolderButton";
-            this.browseRemoteFolderButton.Size = new System.Drawing.Size(129, 30);
+            this.browseRemoteFolderButton.Size = new System.Drawing.Size(161, 30);
             this.browseRemoteFolderButton.TabIndex = 6;
-            this.browseRemoteFolderButton.Text = "Browse Remote Folder";
+            this.browseRemoteFolderButton.Text = "Select Remote Folder";
             this.browseRemoteFolderButton.UseVisualStyleBackColor = false;
             this.browseRemoteFolderButton.Click += new System.EventHandler(this.BrowseRemoteFolderButton_Click);
             // 
@@ -174,6 +181,7 @@
             this.progressLabel.Size = new System.Drawing.Size(48, 13);
             this.progressLabel.TabIndex = 8;
             this.progressLabel.Text = "Progress";
+            this.progressLabel.Visible = false;
             // 
             // toolStrip
             // 
@@ -263,16 +271,116 @@
             this.settingsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bufferSizeToolStripMenuItem,
+            this.maximumRetriesToolStripMenuItem,
             this.uploadSettingsToolStripMenuItem});
             this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 23);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
+            // bufferSizeToolStripMenuItem
+            // 
+            this.bufferSizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kBToolStripMenuItem,
+            this.mBToolStripMenuItem,
+            this.mBToolStripMenuItem1,
+            this.mBToolStripMenuItem2,
+            this.mBToolStripMenuItem3});
+            this.bufferSizeToolStripMenuItem.Name = "bufferSizeToolStripMenuItem";
+            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bufferSizeToolStripMenuItem.Text = "Buffer Size";
+            this.bufferSizeToolStripMenuItem.DoubleClick += new System.EventHandler(this.bufferSizeToolStripMenuItem_DoubleClick);
+            // 
+            // kBToolStripMenuItem
+            // 
+            this.kBToolStripMenuItem.Name = "kBToolStripMenuItem";
+            this.kBToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.kBToolStripMenuItem.Text = "512 KB";
+            this.kBToolStripMenuItem.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
+            // mBToolStripMenuItem
+            // 
+            this.mBToolStripMenuItem.Checked = true;
+            this.mBToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mBToolStripMenuItem.Name = "mBToolStripMenuItem";
+            this.mBToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.mBToolStripMenuItem.Text = "1 MB";
+            this.mBToolStripMenuItem.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
+            // mBToolStripMenuItem1
+            // 
+            this.mBToolStripMenuItem1.Name = "mBToolStripMenuItem1";
+            this.mBToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
+            this.mBToolStripMenuItem1.Text = "2 MB";
+            this.mBToolStripMenuItem1.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
+            // mBToolStripMenuItem2
+            // 
+            this.mBToolStripMenuItem2.Name = "mBToolStripMenuItem2";
+            this.mBToolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
+            this.mBToolStripMenuItem2.Text = "4 MB";
+            this.mBToolStripMenuItem2.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
+            // mBToolStripMenuItem3
+            // 
+            this.mBToolStripMenuItem3.Name = "mBToolStripMenuItem3";
+            this.mBToolStripMenuItem3.Size = new System.Drawing.Size(109, 22);
+            this.mBToolStripMenuItem3.Text = "8 MB";
+            this.mBToolStripMenuItem3.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
+            // maximumRetriesToolStripMenuItem
+            // 
+            this.maximumRetriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5});
+            this.maximumRetriesToolStripMenuItem.Name = "maximumRetriesToolStripMenuItem";
+            this.maximumRetriesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.maximumRetriesToolStripMenuItem.Text = "Maximum Retries";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Checked = true;
+            this.toolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Text = "Infinity";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Text = "20";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Text = "50";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem4.Text = "150";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem5.Text = "300";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
+            // 
             // uploadSettingsToolStripMenuItem
             // 
             this.uploadSettingsToolStripMenuItem.Name = "uploadSettingsToolStripMenuItem";
-            this.uploadSettingsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.uploadSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uploadSettingsToolStripMenuItem.Text = "Upload Settings";
             // 
             // viewToolStripMenuItem
@@ -287,7 +395,7 @@
             // consoleOutputToolStripMenuItem
             // 
             this.consoleOutputToolStripMenuItem.Name = "consoleOutputToolStripMenuItem";
-            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.consoleOutputToolStripMenuItem.Text = "Show Console";
             this.consoleOutputToolStripMenuItem.Click += new System.EventHandler(this.consoleOutputToolStripMenuItem_Click);
             // 
@@ -320,54 +428,6 @@
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(48, 23);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
-            // bufferSizeToolStripMenuItem
-            // 
-            this.bufferSizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.kBToolStripMenuItem,
-            this.mBToolStripMenuItem,
-            this.mBToolStripMenuItem1,
-            this.mBToolStripMenuItem2,
-            this.mBToolStripMenuItem3});
-            this.bufferSizeToolStripMenuItem.Name = "bufferSizeToolStripMenuItem";
-            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.bufferSizeToolStripMenuItem.Text = "Buffer Size";
-            this.bufferSizeToolStripMenuItem.DoubleClick += new System.EventHandler(this.bufferSizeToolStripMenuItem_DoubleClick);
-            // 
-            // kBToolStripMenuItem
-            // 
-            this.kBToolStripMenuItem.Name = "kBToolStripMenuItem";
-            this.kBToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.kBToolStripMenuItem.Text = "512 KB";
-            this.kBToolStripMenuItem.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
-            // 
-            // mBToolStripMenuItem
-            // 
-            this.mBToolStripMenuItem.Name = "mBToolStripMenuItem";
-            this.mBToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.mBToolStripMenuItem.Text = "1 MB";
-            this.mBToolStripMenuItem.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
-            // 
-            // mBToolStripMenuItem1
-            // 
-            this.mBToolStripMenuItem1.Name = "mBToolStripMenuItem1";
-            this.mBToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
-            this.mBToolStripMenuItem1.Text = "2 MB";
-            this.mBToolStripMenuItem1.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
-            // 
-            // mBToolStripMenuItem2
-            // 
-            this.mBToolStripMenuItem2.Name = "mBToolStripMenuItem2";
-            this.mBToolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
-            this.mBToolStripMenuItem2.Text = "4 MB";
-            this.mBToolStripMenuItem2.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
-            // 
-            // mBToolStripMenuItem3
-            // 
-            this.mBToolStripMenuItem3.Name = "mBToolStripMenuItem3";
-            this.mBToolStripMenuItem3.Size = new System.Drawing.Size(109, 22);
-            this.mBToolStripMenuItem3.Text = "8 MB";
-            this.mBToolStripMenuItem3.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -439,6 +499,12 @@
         private System.Windows.Forms.ToolStripMenuItem mBToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem mBToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem mBToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem maximumRetriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
     }
 }
 
