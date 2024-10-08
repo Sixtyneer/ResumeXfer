@@ -10,8 +10,11 @@ namespace ResumeXfer
 {
     public partial class frmMain : Form
     {
-        int buffersize = 1024 * 1024;
-        int retryCount = -1; //It means infinity
+        int buffersize = 1024 * 1024; //1 MB
+        int retryCount = 0; 
+        int maxRetries = -1; //Infinity retries
+        private bool cancelRequested = false;
+
         public frmMain()
         {
             InitializeComponent();
@@ -44,8 +47,6 @@ namespace ResumeXfer
                 browseRemoteFolderButton.BackColor = Color.FromArgb(34, 85, 50); // Revert back to original dark green color
                 browseRemoteFolderButton.FlatAppearance.BorderColor = Color.FromArgb(40, 100, 60); // Revert back to original border color
             };
-
-
         }
         private void BrowseLocalFileButton_Click(object sender, EventArgs e)
         {
@@ -138,10 +139,18 @@ namespace ResumeXfer
                     int bytesRead;
                     Stopwatch stopwatch = Stopwatch.StartNew();
 
+
+
                     ToggleUIControls(false);
 
                     while (totalBytesUploaded < fileLength)
                     {
+                        // Check if cancel was requested
+                        if (cancelRequested)
+                        {
+                            rtbConsole.Text = $"{DateTime.Now} Upload canceled at {progressBar1.Value}% completion.";
+                            break; // Exit the upload loop
+                        }
                         try
                         {
                             bytesRead = await localStream.ReadAsync(buffer, 0, buffer.Length);
@@ -154,9 +163,12 @@ namespace ResumeXfer
 
                             totalBytesUploaded += bytesRead;
 
+                            // Reset the retry counter when successful data transmission occurs
+                            retryCount = 0;
+
                             // Calculate speed (in KB/s)
                             double elapsedSeconds = stopwatch.Elapsed.TotalSeconds;
-                            double speed = totalBytesUploaded / elapsedSeconds / 1024;
+                            double speed = totalBytesUploaded / elapsedSeconds / 1024.0;
 
                             // Calculate kilobytes
                             double totalKilobytesUploaded = totalBytesUploaded / 1024.0;
@@ -175,14 +187,24 @@ namespace ResumeXfer
 
                             progressLabel.Invoke((Action)(() =>
                             {
-                                progressLabel.Text = $"{totalKilobytesUploaded:F2} KB / {totalKilobytes:F2} KB uploaded";
+                                progressLabel.Text = $"{totalKilobytesUploaded:F2} KB / {totalKilobytes:F2} KB uploaded    ({Math.Round(totalKilobytesUploaded / totalKilobytes, 0)})%";
                             }));
 
                         }
                         catch (IOException)
                         {
+                            if (!(maxRetries == -1))
+                            {
+                                retryCount++;
+                                if (retryCount >= maxRetries)
+                                {
+                                    MessageBox.Show($"Upload failed after {maxRetries} attempts..", "Upload Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    break;
+                                }
+                            }
+                            
                             // Handle disconnection
-                            rtbConsole.Text = DateTime.Now + " Connection lost. Retrying... (IO Exception)";
+                            rtbConsole.Text = DateTime.Now + " Connection lost. Retrying... " + (maxRetries == -1 ? "(IO Exception)" : $"({retryCount}/{maxRetries})");
                             await Task.Delay(5000); // Wait for 5 seconds before retrying
 
                             // Reopen the local file stream and seek to the current position
@@ -195,8 +217,9 @@ namespace ResumeXfer
                 finally
                 {
                     localStream?.Dispose();
+                    retryCount = 0;
                 }
-                rtbConsole.Text = DateTime.Now + " Upload completed successfully.";
+                if (!cancelRequested) rtbConsole.Text = DateTime.Now + " Upload completed successfully.";
             }
             catch (Exception ex)
             {
@@ -205,6 +228,7 @@ namespace ResumeXfer
             finally
             {
                 ToggleUIControls(true);
+                cancelRequested = false; // Reset cancel flag for future uploads
             }
         }
 
@@ -215,6 +239,8 @@ namespace ResumeXfer
             progressLabel.Visible = !enabled;
             browseLocalFileButton.Enabled = enabled;
             browseRemoteFolderButton.Enabled = enabled;
+            openLocalFileToolStripMenuItem.Enabled = enabled;
+            selectRemoteFolderToolStripMenuItem.Enabled = enabled;
             uploadButton.Enabled = enabled;
             localFilePathTextBox.Enabled = enabled;
             remoteFilePathTextBox.Enabled = enabled;
@@ -248,19 +274,28 @@ namespace ResumeXfer
         }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //wip
-            //Need to handle the uploading process when the user qiut the application!
-            var res = MessageBox.Show("Are you sure want to Quit the application?", "Upload is in progress!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (res == DialogResult.Yes)
+            if (progressBar1.Value > 0 && progressBar1.Value < 100) // If the upload is in progress
             {
-                Close();
+                var res = MessageBox.Show("An upload is in progress. Are you sure you want to quit?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (res == DialogResult.Yes)
+                {
+                    CancelUpload(); 
+                    Close();
+                }
+                else rtbConsole.Text = "The upload continued";
             }
             else
             {
-                MessageBox.Show("Ok, cool.");
+                Close(); // Close directly if no upload is happening
             }
         }
 
+        private void CancelUpload()
+        {
+            cancelRequested = true;
+
+            rtbConsole.Text = $"{DateTime.Now} Upload was canceled by the user at {progressBar1.Value}% completion.";
+        }
 
         private void bufferSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -323,11 +358,11 @@ namespace ResumeXfer
                     clickedItem.Checked = true;
                     switch (clickedItem.Text)
                     {
-                        case "20": retryCount = 20; break;
-                        case "50": retryCount = 50; break;
-                        case "150": retryCount = 150; break;
-                        case "300": retryCount = 300;  break;
-                        default: retryCount = -1; break; //Default Infinity
+                        case "20": maxRetries = 20; break;
+                        case "50": maxRetries = 50; break;
+                        case "150": maxRetries = 150; break;
+                        case "300": maxRetries = 300;  break;
+                        default: maxRetries = -1; break; //Default Infinity
                     }
                     continue;
                 }

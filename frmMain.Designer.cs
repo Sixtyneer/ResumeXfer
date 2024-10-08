@@ -59,7 +59,6 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.uploadSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consoleOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,14 +99,14 @@
             // speedLabel
             // 
             this.speedLabel.AutoSize = true;
+            this.speedLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.speedLabel.Enabled = false;
             this.speedLabel.ForeColor = System.Drawing.Color.White;
-            this.speedLabel.Location = new System.Drawing.Point(129, 172);
+            this.speedLabel.Location = new System.Drawing.Point(12, 172);
             this.speedLabel.Name = "speedLabel";
             this.speedLabel.Size = new System.Drawing.Size(81, 13);
             this.speedLabel.TabIndex = 2;
             this.speedLabel.Text = "Upload Speed: ";
-            this.speedLabel.Visible = false;
             // 
             // localFilePathTextBox
             // 
@@ -176,7 +175,7 @@
             this.progressLabel.AutoSize = true;
             this.progressLabel.Enabled = false;
             this.progressLabel.ForeColor = System.Drawing.Color.White;
-            this.progressLabel.Location = new System.Drawing.Point(306, 172);
+            this.progressLabel.Location = new System.Drawing.Point(153, 172);
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(48, 13);
             this.progressLabel.TabIndex = 8;
@@ -255,6 +254,7 @@
             this.openLocalFileToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0);
             this.openLocalFileToolStripMenuItem.Size = new System.Drawing.Size(185, 20);
             this.openLocalFileToolStripMenuItem.Text = "Open Local File";
+            this.openLocalFileToolStripMenuItem.Click += new System.EventHandler(this.BrowseLocalFileButton_Click);
             // 
             // selectRemoteFolderToolStripMenuItem
             // 
@@ -265,14 +265,14 @@
             this.selectRemoteFolderToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0);
             this.selectRemoteFolderToolStripMenuItem.Size = new System.Drawing.Size(185, 20);
             this.selectRemoteFolderToolStripMenuItem.Text = "Select Remote Folder";
+            this.selectRemoteFolderToolStripMenuItem.Click += new System.EventHandler(this.BrowseRemoteFolderButton_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bufferSizeToolStripMenuItem,
-            this.maximumRetriesToolStripMenuItem,
-            this.uploadSettingsToolStripMenuItem});
+            this.maximumRetriesToolStripMenuItem});
             this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 23);
@@ -287,7 +287,7 @@
             this.mBToolStripMenuItem2,
             this.mBToolStripMenuItem3});
             this.bufferSizeToolStripMenuItem.Name = "bufferSizeToolStripMenuItem";
-            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.bufferSizeToolStripMenuItem.Text = "Buffer Size";
             this.bufferSizeToolStripMenuItem.DoubleClick += new System.EventHandler(this.bufferSizeToolStripMenuItem_DoubleClick);
             // 
@@ -337,7 +337,7 @@
             this.toolStripMenuItem4,
             this.toolStripMenuItem5});
             this.maximumRetriesToolStripMenuItem.Name = "maximumRetriesToolStripMenuItem";
-            this.maximumRetriesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.maximumRetriesToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.maximumRetriesToolStripMenuItem.Text = "Maximum Retries";
             // 
             // toolStripMenuItem1
@@ -345,43 +345,37 @@
             this.toolStripMenuItem1.Checked = true;
             this.toolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
             this.toolStripMenuItem1.Text = "Infinity";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(111, 22);
             this.toolStripMenuItem2.Text = "20";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(111, 22);
             this.toolStripMenuItem3.Text = "50";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(111, 22);
             this.toolStripMenuItem4.Text = "150";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(111, 22);
             this.toolStripMenuItem5.Text = "300";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
-            // 
-            // uploadSettingsToolStripMenuItem
-            // 
-            this.uploadSettingsToolStripMenuItem.Name = "uploadSettingsToolStripMenuItem";
-            this.uploadSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.uploadSettingsToolStripMenuItem.Text = "Upload Settings";
             // 
             // viewToolStripMenuItem
             // 
@@ -487,7 +481,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectRemoteFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bufferSizeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem uploadSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consoleOutputToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
