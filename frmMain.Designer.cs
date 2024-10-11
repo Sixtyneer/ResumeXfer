@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.uploadButton = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.speedLabel = new System.Windows.Forms.Label();
             this.localFilePathTextBox = new System.Windows.Forms.TextBox();
@@ -38,9 +38,6 @@
             this.browseRemoteFolderButton = new System.Windows.Forms.Button();
             this.rtbConsole = new System.Windows.Forms.RichTextBox();
             this.progressLabel = new System.Windows.Forms.Label();
-            this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panelTop = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,26 +63,12 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStrip.SuspendLayout();
+            this.uploadButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelTop.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // uploadButton
-            // 
-            this.uploadButton.BackgroundImage = global::ResumeXfer.Properties.Resources.Upload;
-            this.uploadButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uploadButton.Enabled = false;
-            this.uploadButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.uploadButton.Location = new System.Drawing.Point(508, 128);
-            this.uploadButton.Margin = new System.Windows.Forms.Padding(0);
-            this.uploadButton.Name = "uploadButton";
-            this.uploadButton.Size = new System.Drawing.Size(33, 33);
-            this.uploadButton.TabIndex = 0;
-            this.uploadButton.UseVisualStyleBackColor = false;
-            this.uploadButton.Click += new System.EventHandler(this.UploadButton_Click);
-            this.uploadButton.MouseEnter += new System.EventHandler(this.uploadButton_MouseEnter);
-            this.uploadButton.MouseLeave += new System.EventHandler(this.uploadButton_MouseLeave);
             // 
             // progressBar1
             // 
@@ -99,7 +82,7 @@
             // speedLabel
             // 
             this.speedLabel.AutoSize = true;
-            this.speedLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.speedLabel.BackColor = System.Drawing.Color.Transparent;
             this.speedLabel.Enabled = false;
             this.speedLabel.ForeColor = System.Drawing.Color.White;
             this.speedLabel.Location = new System.Drawing.Point(12, 172);
@@ -107,6 +90,7 @@
             this.speedLabel.Size = new System.Drawing.Size(81, 13);
             this.speedLabel.TabIndex = 2;
             this.speedLabel.Text = "Upload Speed: ";
+            this.speedLabel.Visible = false;
             // 
             // localFilePathTextBox
             // 
@@ -173,39 +157,15 @@
             // progressLabel
             // 
             this.progressLabel.AutoSize = true;
+            this.progressLabel.BackColor = System.Drawing.Color.Transparent;
             this.progressLabel.Enabled = false;
             this.progressLabel.ForeColor = System.Drawing.Color.White;
-            this.progressLabel.Location = new System.Drawing.Point(153, 172);
+            this.progressLabel.Location = new System.Drawing.Point(195, 172);
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(48, 13);
             this.progressLabel.TabIndex = 8;
             this.progressLabel.Text = "Progress";
             this.progressLabel.Visible = false;
-            // 
-            // toolStrip
-            // 
-            this.toolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.toolStripSeparator1});
-            this.toolStrip.Location = new System.Drawing.Point(0, 262);
-            this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(557, 25);
-            this.toolStrip.TabIndex = 9;
-            this.toolStrip.Text = "toolStrip1";
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(86, 22);
-            this.toolStripLabel1.Text = "toolStripLabel1";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // panelTop
             // 
@@ -218,16 +178,16 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.helpToolStripMenuItem,
             this.closeToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(0, -4);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(557, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(557, 31);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMain_MouseDown);
@@ -241,7 +201,7 @@
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(29, 23);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(29, 27);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openLocalFileToolStripMenuItem
@@ -275,7 +235,7 @@
             this.maximumRetriesToolStripMenuItem});
             this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 23);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 27);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // bufferSizeToolStripMenuItem
@@ -383,7 +343,7 @@
             this.consoleOutputToolStripMenuItem});
             this.viewToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 27);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // consoleOutputToolStripMenuItem
@@ -400,7 +360,7 @@
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 27);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // instructionsToolStripMenuItem
@@ -418,10 +378,36 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.closeToolStripMenuItem.BackColor = System.Drawing.Color.Transparent;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(48, 23);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(48, 27);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // uploadButton
+            // 
+            this.uploadButton.BackgroundImage = global::ResumeXfer.Properties.Resources.Upload;
+            this.uploadButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uploadButton.Enabled = false;
+            this.uploadButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.uploadButton.Location = new System.Drawing.Point(508, 128);
+            this.uploadButton.Margin = new System.Windows.Forms.Padding(0);
+            this.uploadButton.Name = "uploadButton";
+            this.uploadButton.Size = new System.Drawing.Size(33, 33);
+            this.uploadButton.TabIndex = 0;
+            this.uploadButton.UseVisualStyleBackColor = false;
+            this.uploadButton.Click += new System.EventHandler(this.UploadButton_Click);
+            this.uploadButton.MouseEnter += new System.EventHandler(this.uploadButton_MouseEnter);
+            this.uploadButton.MouseLeave += new System.EventHandler(this.uploadButton_MouseLeave);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ResumeXfer.Properties.Resources.Icon;
+            this.pictureBox1.Location = new System.Drawing.Point(508, 34);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(37, 30);
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
             // 
             // frmMain
             // 
@@ -429,11 +415,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(557, 287);
+            this.ClientSize = new System.Drawing.Size(557, 263);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.remoteFilePathTextBox);
             this.Controls.Add(this.localFilePathTextBox);
             this.Controls.Add(this.panelTop);
-            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.rtbConsole);
             this.Controls.Add(this.browseRemoteFolderButton);
@@ -442,18 +428,18 @@
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.uploadButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1024, 500);
             this.Name = "frmMain";
             this.Text = "Resume X fer";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMain_MouseDown);
-            this.toolStrip.ResumeLayout(false);
-            this.toolStrip.PerformLayout();
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -470,9 +456,6 @@
         private System.Windows.Forms.Button browseRemoteFolderButton;
         private System.Windows.Forms.RichTextBox rtbConsole;
         private System.Windows.Forms.Label progressLabel;
-        private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -498,6 +481,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

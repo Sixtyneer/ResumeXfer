@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,6 +16,8 @@ namespace ResumeXfer
         int retryCount = 0; 
         int maxRetries = -1; //Infinity retries
         private bool cancelRequested = false;
+        private bool isPaused = false;
+        private CancellationTokenSource cancellationTokenSource;
 
         public frmMain()
         {
@@ -64,18 +68,54 @@ namespace ResumeXfer
 
             ValidateUploadButton();
         }
-        
-
+        string localFilePath = string.Empty;
+        string remoteFolderPath = string.Empty;
+        private string originalLocalFilePath = string.Empty; // Store the original file path for comparison
         private async void UploadButton_Click(object sender, EventArgs e)
         {
             toolTip1.Hide(this);
-            string localFilePath = localFilePathTextBox.Text;
-            string remoteFolderPath = remoteFilePathTextBox.Text;
 
+            localFilePath = localFilePathTextBox.Text;
+            remoteFolderPath = remoteFilePathTextBox.Text;
+            
+            // If already uploading, handle pause/resume logic
+            if (cancellationTokenSource != null && !isPaused)
+            {
+                // Pause the upload
+                isPaused = true;
+                cancellationTokenSource.Cancel();
+                uploadButton.BackgroundImage = Image.FromFile("Upload.png"); // Change to resume button icon
+                rtbConsole.Text = DateTime.Now + " Upload paused.";
+                return;
+            }
+
+            // If resuming
+            if (isPaused)
+            {
+                // Resume the upload
+                isPaused = false;
+                uploadButton.BackgroundImage = Image.FromFile("pause.png"); // Change to pause button icon
+                rtbConsole.Text = DateTime.Now + " Resuming upload...";
+                localFilePath = localFilePathTextBox.Text;
+                remoteFolderPath = remoteFilePathTextBox.Text;
+
+                if (ValidatePaths())
+                {
+                    string remoteFilePath = Path.Combine(remoteFolderPath, Path.GetFileName(localFilePath));
+                    cancellationTokenSource = new CancellationTokenSource(); // Create a new token for resuming
+                    await UploadFileWithResume(localFilePath, remoteFilePath, cancellationTokenSource.Token);
+                }
+                return;
+            }
+            
+            // If starting the upload for the first time
             if (ValidatePaths())
             {
+                originalLocalFilePath = localFilePathTextBox.Text; // Store the original path
                 string remoteFilePath = Path.Combine(remoteFolderPath, Path.GetFileName(localFilePath));
-                await UploadFileWithResume(localFilePath, remoteFilePath);
+                uploadButton.BackgroundImage = Image.FromFile("pause.png"); // Change to pause button icon
+                cancellationTokenSource = new CancellationTokenSource(); // Create the cancellation token
+                await UploadFileWithResume(localFilePath, remoteFilePath, cancellationTokenSource.Token);
             }
         }
         private void ValidateUploadButton() 
@@ -114,8 +154,8 @@ namespace ResumeXfer
         {
             return Path.IsPathRooted(remoteFolderPath) && Directory.Exists(remoteFolderPath);
         }
-
-        private async Task UploadFileWithResume(string localFilePath, string remoteFilePath)
+        private int maxUploadSpeed = 1024; // Maximum upload speed in KB/s (example: 1024 KB/s = 1 MB/s)
+        private async Task UploadFileWithResume(string localFilePath, string remoteFilePath, CancellationToken cancellationToken)
         {
             try
             {
@@ -139,12 +179,17 @@ namespace ResumeXfer
                     int bytesRead;
                     Stopwatch stopwatch = Stopwatch.StartNew();
 
-
-
                     ToggleUIControls(false);
 
                     while (totalBytesUploaded < fileLength)
                     {
+                        // Check if the operation is canceled
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            rtbConsole.Text = DateTime.Now + $" Upload paused by user at {progressBar1.Value}% completion...";
+                            break;
+                        }
+
                         // Check if cancel was requested
                         if (cancelRequested)
                         {
@@ -168,7 +213,7 @@ namespace ResumeXfer
 
                             // Calculate speed (in KB/s)
                             double elapsedSeconds = stopwatch.Elapsed.TotalSeconds;
-                            double speed = totalBytesUploaded / elapsedSeconds / 1024.0;
+                            double speedKilobytes = totalBytesUploaded / elapsedSeconds / 1024.0;
 
                             // Calculate kilobytes
                             double totalKilobytesUploaded = totalBytesUploaded / 1024.0;
@@ -182,12 +227,16 @@ namespace ResumeXfer
 
                             speedLabel.Invoke((Action)(() =>
                             {
-                                speedLabel.Text = $"{speed:F2} KB/s";
+                                if (speedKilobytes < 15000) speedLabel.Text = $"Upload speed: {speedKilobytes:F2} KB/s";
+                                if (speedKilobytes >= 15000 && speedKilobytes < 800000) speedLabel.Text = $"Upload speed: {speedKilobytes / 1024.0:F2} MB/s";
+                                if (speedKilobytes >= 800000) speedLabel.Text = $"Upload speed: {speedKilobytes / 1048576.0:F2} GB/s";
                             }));
 
                             progressLabel.Invoke((Action)(() =>
                             {
-                                progressLabel.Text = $"{totalKilobytesUploaded:F2} KB / {totalKilobytes:F2} KB uploaded    ({Math.Round(totalKilobytesUploaded / totalKilobytes, 0)})%";
+                                if (speedKilobytes < 15000) progressLabel.Text = $"Progress: {totalKilobytesUploaded:F2} KB / {totalKilobytes:F2} KB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
+                                else if (speedKilobytes < 800000) speedLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/1024.0:F2} MB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
+                                else speedLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/ 1048576.0:F2} GB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
                             }));
 
                         }
@@ -219,7 +268,7 @@ namespace ResumeXfer
                     localStream?.Dispose();
                     retryCount = 0;
                 }
-                if (!cancelRequested) rtbConsole.Text = DateTime.Now + " Upload completed successfully.";
+                if (!cancelRequested && !cancellationToken.IsCancellationRequested) rtbConsole.Text = $"{DateTime.Now} Upload of {Path.GetFileName(localFilePath)} completed successfully.";
             }
             catch (Exception ex)
             {
@@ -228,7 +277,9 @@ namespace ResumeXfer
             finally
             {
                 ToggleUIControls(true);
+                uploadButton.BackgroundImage = Image.FromFile("upload.png"); // Reset button to default
                 cancelRequested = false; // Reset cancel flag for future uploads
+                cancellationTokenSource = null; // Reset after the task is completed
             }
         }
 
@@ -241,7 +292,6 @@ namespace ResumeXfer
             browseRemoteFolderButton.Enabled = enabled;
             openLocalFileToolStripMenuItem.Enabled = enabled;
             selectRemoteFolderToolStripMenuItem.Enabled = enabled;
-            uploadButton.Enabled = enabled;
             localFilePathTextBox.Enabled = enabled;
             remoteFilePathTextBox.Enabled = enabled;
         }
@@ -249,12 +299,36 @@ namespace ResumeXfer
         private void localFilePathTextBox_TextChanged(object sender, EventArgs e)
         {
             ValidateUploadButton();
+
+            // If the file path is changed back to the original, allow resuming
+            if (isPaused && localFilePathTextBox.Text == originalLocalFilePath)
+            {
+                // Do not reset the pause state, just maintain the pause icon
+                rtbConsole.Text = DateTime.Now + " Resuming with the original file path.";
+            }
+            else
+            {
+                // If the file path is changed to something else, reset to upload icon
+                if (isPaused)
+                {
+                    uploadButton.BackgroundImage = Image.FromFile("upload.png");
+                    isPaused = false; // Reset pause state
+                }
+            }
         }
 
         private void remoteFilePathTextBox_TextChanged(object sender, EventArgs e)
         {
             ValidateUploadButton();
+
+            // Reset to upload icon if changes are made while paused
+            if (isPaused)
+            {
+                uploadButton.BackgroundImage = Image.FromFile("upload.png");
+                isPaused = false; // Reset pause state
+            }
         }
+
         // Constants to handle the dragging
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -299,6 +373,11 @@ namespace ResumeXfer
 
         private void bufferSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (cancellationTokenSource != null) // Check if upload is in progress
+            {
+                MessageBox.Show("You cannot change the buffer size while an upload is in progress.", "Buffer Size Change", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Exit the method without changing the buffer size
+            }
             ToolStripMenuItem clickedItem = sender as ToolStripMenuItem;
             foreach (ToolStripMenuItem item in clickedItem.GetCurrentParent().Items)
             {
