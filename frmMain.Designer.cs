@@ -64,10 +64,8 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.uploadButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelTop.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -400,15 +398,6 @@
             this.uploadButton.MouseEnter += new System.EventHandler(this.uploadButton_MouseEnter);
             this.uploadButton.MouseLeave += new System.EventHandler(this.uploadButton_MouseLeave);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::ResumeXfer.Properties.Resources.Icon;
-            this.pictureBox1.Location = new System.Drawing.Point(508, 34);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(37, 30);
-            this.pictureBox1.TabIndex = 11;
-            this.pictureBox1.TabStop = false;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -416,7 +405,6 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ClientSize = new System.Drawing.Size(557, 263);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.remoteFilePathTextBox);
             this.Controls.Add(this.localFilePathTextBox);
             this.Controls.Add(this.panelTop);
@@ -439,7 +427,6 @@
             this.panelTop.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -481,7 +468,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
