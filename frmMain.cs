@@ -419,7 +419,15 @@ namespace ResumeXfer
 
         private void uploadButton_MouseEnter(object sender, EventArgs e)
         {
-            if (uploadButton.Enabled) toolTip1.Show("Start file upload", this, PointToClient(MousePosition).X, PointToClient(MousePosition).Y);
+            if (uploadButton.Enabled)
+            {
+                // X is the mouse's X position
+                // Y is directly below the button + 5px to make a better look
+                if (cancellationTokenSource != null && !isPaused)
+                    toolTip1.Show("Pause file upload", this, PointToClient(MousePosition).X, uploadButton.Bottom + 5);
+                else
+                    toolTip1.Show("Start file upload", this, PointToClient(MousePosition).X, uploadButton.Bottom + 5);
+            }
         }
 
         private void uploadButton_MouseLeave(object sender, EventArgs e)
@@ -447,6 +455,18 @@ namespace ResumeXfer
                 }
                 item.Checked = false;
             }
+        }
+
+        private void uploadButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Move the button down and right by 2 pixels
+            uploadButton.Location = new Point(uploadButton.Location.X + 2, uploadButton.Location.Y + 2);
+        }
+
+        private void uploadButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            // Move the button down and right by 2 pixels
+            uploadButton.Location = new Point(uploadButton.Location.X - 2, uploadButton.Location.Y - 2);
         }
     }
 }

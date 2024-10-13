@@ -71,7 +71,7 @@
             // progressBar1
             // 
             this.progressBar1.Enabled = false;
-            this.progressBar1.Location = new System.Drawing.Point(11, 129);
+            this.progressBar1.Location = new System.Drawing.Point(11, 122);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(436, 32);
             this.progressBar1.TabIndex = 1;
@@ -176,14 +176,13 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.helpToolStripMenuItem,
             this.closeToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, -4);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(557, 31);
             this.menuStrip1.TabIndex = 1;
@@ -245,14 +244,14 @@
             this.mBToolStripMenuItem2,
             this.mBToolStripMenuItem3});
             this.bufferSizeToolStripMenuItem.Name = "bufferSizeToolStripMenuItem";
-            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.bufferSizeToolStripMenuItem.Text = "Buffer Size";
             this.bufferSizeToolStripMenuItem.DoubleClick += new System.EventHandler(this.bufferSizeToolStripMenuItem_DoubleClick);
             // 
             // kBToolStripMenuItem
             // 
             this.kBToolStripMenuItem.Name = "kBToolStripMenuItem";
-            this.kBToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.kBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.kBToolStripMenuItem.Text = "512 KB";
             this.kBToolStripMenuItem.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -261,28 +260,28 @@
             this.mBToolStripMenuItem.Checked = true;
             this.mBToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mBToolStripMenuItem.Name = "mBToolStripMenuItem";
-            this.mBToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.mBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mBToolStripMenuItem.Text = "1 MB";
             this.mBToolStripMenuItem.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // mBToolStripMenuItem1
             // 
             this.mBToolStripMenuItem1.Name = "mBToolStripMenuItem1";
-            this.mBToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
+            this.mBToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.mBToolStripMenuItem1.Text = "2 MB";
             this.mBToolStripMenuItem1.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // mBToolStripMenuItem2
             // 
             this.mBToolStripMenuItem2.Name = "mBToolStripMenuItem2";
-            this.mBToolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
+            this.mBToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.mBToolStripMenuItem2.Text = "4 MB";
             this.mBToolStripMenuItem2.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // mBToolStripMenuItem3
             // 
             this.mBToolStripMenuItem3.Name = "mBToolStripMenuItem3";
-            this.mBToolStripMenuItem3.Size = new System.Drawing.Size(109, 22);
+            this.mBToolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.mBToolStripMenuItem3.Text = "8 MB";
             this.mBToolStripMenuItem3.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -295,7 +294,7 @@
             this.toolStripMenuItem4,
             this.toolStripMenuItem5});
             this.maximumRetriesToolStripMenuItem.Name = "maximumRetriesToolStripMenuItem";
-            this.maximumRetriesToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.maximumRetriesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.maximumRetriesToolStripMenuItem.Text = "Maximum Retries";
             // 
             // toolStripMenuItem1
@@ -347,7 +346,7 @@
             // consoleOutputToolStripMenuItem
             // 
             this.consoleOutputToolStripMenuItem.Name = "consoleOutputToolStripMenuItem";
-            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.consoleOutputToolStripMenuItem.Text = "Show Console";
             this.consoleOutputToolStripMenuItem.Click += new System.EventHandler(this.consoleOutputToolStripMenuItem_Click);
             // 
@@ -382,21 +381,33 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.ForeColor = System.Drawing.Color.Black;
+            this.toolTip1.InitialDelay = 500;
+            this.toolTip1.ReshowDelay = 1000;
+            this.toolTip1.StripAmpersands = true;
+            // 
             // uploadButton
             // 
+            this.uploadButton.AutoSize = true;
             this.uploadButton.BackgroundImage = global::ResumeXfer.Properties.Resources.Upload;
+            this.uploadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.uploadButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uploadButton.Enabled = false;
             this.uploadButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.uploadButton.Location = new System.Drawing.Point(508, 128);
+            this.uploadButton.Location = new System.Drawing.Point(473, 122);
             this.uploadButton.Margin = new System.Windows.Forms.Padding(0);
             this.uploadButton.Name = "uploadButton";
-            this.uploadButton.Size = new System.Drawing.Size(33, 33);
+            this.uploadButton.Size = new System.Drawing.Size(68, 45);
             this.uploadButton.TabIndex = 0;
             this.uploadButton.UseVisualStyleBackColor = false;
             this.uploadButton.Click += new System.EventHandler(this.UploadButton_Click);
+            this.uploadButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.uploadButton_MouseDown);
             this.uploadButton.MouseEnter += new System.EventHandler(this.uploadButton_MouseEnter);
             this.uploadButton.MouseLeave += new System.EventHandler(this.uploadButton_MouseLeave);
+            this.uploadButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.uploadButton_MouseUp);
             // 
             // frmMain
             // 
