@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ResumeXfer.Forms;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -27,7 +28,7 @@ namespace ResumeXfer
         }
         private void Coloring() 
         {
-            panelTop.BackColor = BackColor;
+            panelMenu.BackColor = BackColor;
             menuStrip1.BackColor = BackColor;
 
             // Set other properties (like text and font)
@@ -40,7 +41,7 @@ namespace ResumeXfer
                 browseLocalFileButton.FlatAppearance.BorderColor = Color.FromArgb(70, 150, 90); // Lighter green border on hover
             };
             browseLocalFileButton.MouseLeave += (sender, e) => {
-                browseLocalFileButton.BackColor = Color.FromArgb(34, 85, 50); // Revert back to original dark green color
+                browseLocalFileButton.BackColor = Color.FromArgb(0, 191, 99); // Revert back to original dark green color
                 browseLocalFileButton.FlatAppearance.BorderColor = Color.FromArgb(40, 100, 60); // Revert back to original border color
             };
             browseRemoteFolderButton.MouseEnter += (sender, e) => {
@@ -48,7 +49,7 @@ namespace ResumeXfer
                 browseRemoteFolderButton.FlatAppearance.BorderColor = Color.FromArgb(70, 150, 90); // Lighter green border on hover
             };
             browseRemoteFolderButton.MouseLeave += (sender, e) => {
-                browseRemoteFolderButton.BackColor = Color.FromArgb(34, 85, 50); // Revert back to original dark green color
+                browseRemoteFolderButton.BackColor = Color.FromArgb(0, 191, 99); // Revert back to original dark green color
                 browseRemoteFolderButton.FlatAppearance.BorderColor = Color.FromArgb(40, 100, 60); // Revert back to original border color
             };
         }
@@ -65,7 +66,6 @@ namespace ResumeXfer
             using (var folderBrowserDialog = new FolderBrowserDialog())
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                     remoteFilePathTextBox.Text = folderBrowserDialog.SelectedPath;
-
             ValidateUploadButton();
         }
         string localFilePath = string.Empty;
@@ -73,8 +73,6 @@ namespace ResumeXfer
         private string originalLocalFilePath = string.Empty; // Store the original file path for comparison
         private async void UploadButton_Click(object sender, EventArgs e)
         {
-            toolTip1.Hide(this);
-
             localFilePath = localFilePathTextBox.Text;
             remoteFolderPath = remoteFilePathTextBox.Text;
             
@@ -159,6 +157,8 @@ namespace ResumeXfer
         {
             try
             {
+                popupForm?.Hide();
+
                 FileInfo fileInfo = new FileInfo(localFilePath);
                 long fileLength = fileInfo.Length;
                 long totalBytesUploaded = 0;
@@ -413,26 +413,43 @@ namespace ResumeXfer
         }
         private void bufferSizeToolStripMenuItem_DoubleClick(object sender, EventArgs e)
         {
-            string buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
-            toolTip1.Show(buffer_tooltip_text, this, PointToClient(MousePosition).X, PointToClient(MousePosition).Y);
+            var buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
         }
-
+        frmPopup popupForm = new frmPopup();
         private void uploadButton_MouseEnter(object sender, EventArgs e)
         {
             if (uploadButton.Enabled)
             {
-                // X is the mouse's X position
-                // Y is directly below the button + 5px to make a better look
-                if (cancellationTokenSource != null && !isPaused)
-                    toolTip1.Show("Pause file upload", this, PointToClient(MousePosition).X, uploadButton.Bottom + 5);
-                else
-                    toolTip1.Show("Start file upload", this, PointToClient(MousePosition).X, uploadButton.Bottom + 5);
+                string message = (cancellationTokenSource != null && !isPaused)  ? "Pause file upload" : "Start file upload";
+
+                popupForm.SetText(message);
+
+                int posX = uploadButton.Left + 10;
+                int posY = uploadButton.Bottom + 5; 
+
+                // Get the dimensions of the popup and the main form
+                int popupWidth = popupForm.Width;
+                int popupHeight = popupForm.Height;
+                int formWidth = ClientSize.Width;
+                int formHeight = ClientSize.Height;
+
+                // Adjust if the popup goes outside the right edge of the form
+                if (posX + popupWidth > formWidth)
+                    posX = formWidth - popupWidth - 5; // Ensure 5px padding from the right edge
+
+                // Adjust if the popup goes outside the bottom edge of the form
+                if (posY + popupHeight > formHeight)
+                    posY = uploadButton.Top - popupHeight - 5; // Show the popup above the button if not enough space below
+
+                popupForm.Location = new Point(Left + posX, Top + posY);
+
+                popupForm.FadeInPopup();
             }
         }
 
         private void uploadButton_MouseLeave(object sender, EventArgs e)
         {
-            toolTip1.Hide(this);
+            popupForm.Hide();
         }
 
         private void MaxRetrytoolStripMenuItem_Click(object sender, EventArgs e)

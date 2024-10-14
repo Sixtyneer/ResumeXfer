@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.speedLabel = new System.Windows.Forms.Label();
@@ -38,7 +37,7 @@
             this.browseRemoteFolderButton = new System.Windows.Forms.Button();
             this.rtbConsole = new System.Windows.Forms.RichTextBox();
             this.progressLabel = new System.Windows.Forms.Label();
-            this.panelTop = new System.Windows.Forms.Panel();
+            this.panelMenu = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLocalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,16 +61,19 @@
             this.instructionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.panelTop = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.uploadButton = new System.Windows.Forms.Button();
-            this.panelTop.SuspendLayout();
+            this.panelMenu.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.panelTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar1
             // 
             this.progressBar1.Enabled = false;
-            this.progressBar1.Location = new System.Drawing.Point(11, 122);
+            this.progressBar1.Location = new System.Drawing.Point(12, 155);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(436, 32);
             this.progressBar1.TabIndex = 1;
@@ -83,7 +85,7 @@
             this.speedLabel.BackColor = System.Drawing.Color.Transparent;
             this.speedLabel.Enabled = false;
             this.speedLabel.ForeColor = System.Drawing.Color.White;
-            this.speedLabel.Location = new System.Drawing.Point(12, 172);
+            this.speedLabel.Location = new System.Drawing.Point(12, 200);
             this.speedLabel.Name = "speedLabel";
             this.speedLabel.Size = new System.Drawing.Size(81, 13);
             this.speedLabel.TabIndex = 2;
@@ -93,7 +95,7 @@
             // localFilePathTextBox
             // 
             this.localFilePathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.localFilePathTextBox.Location = new System.Drawing.Point(11, 84);
+            this.localFilePathTextBox.Location = new System.Drawing.Point(11, 117);
             this.localFilePathTextBox.Multiline = true;
             this.localFilePathTextBox.Name = "localFilePathTextBox";
             this.localFilePathTextBox.Size = new System.Drawing.Size(232, 32);
@@ -103,7 +105,7 @@
             // remoteFilePathTextBox
             // 
             this.remoteFilePathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.remoteFilePathTextBox.Location = new System.Drawing.Point(309, 84);
+            this.remoteFilePathTextBox.Location = new System.Drawing.Point(309, 117);
             this.remoteFilePathTextBox.Multiline = true;
             this.remoteFilePathTextBox.Name = "remoteFilePathTextBox";
             this.remoteFilePathTextBox.Size = new System.Drawing.Size(232, 32);
@@ -112,11 +114,11 @@
             // 
             // browseLocalFileButton
             // 
-            this.browseLocalFileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(85)))), ((int)(((byte)(50)))));
+            this.browseLocalFileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(191)))), ((int)(((byte)(99)))));
             this.browseLocalFileButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(60)))));
             this.browseLocalFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.browseLocalFileButton.ForeColor = System.Drawing.Color.White;
-            this.browseLocalFileButton.Location = new System.Drawing.Point(11, 43);
+            this.browseLocalFileButton.Location = new System.Drawing.Point(11, 64);
             this.browseLocalFileButton.Name = "browseLocalFileButton";
             this.browseLocalFileButton.Size = new System.Drawing.Size(154, 30);
             this.browseLocalFileButton.TabIndex = 5;
@@ -126,11 +128,11 @@
             // 
             // browseRemoteFolderButton
             // 
-            this.browseRemoteFolderButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(85)))), ((int)(((byte)(50)))));
+            this.browseRemoteFolderButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(191)))), ((int)(((byte)(99)))));
             this.browseRemoteFolderButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(60)))));
             this.browseRemoteFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.browseRemoteFolderButton.ForeColor = System.Drawing.Color.White;
-            this.browseRemoteFolderButton.Location = new System.Drawing.Point(309, 43);
+            this.browseRemoteFolderButton.Location = new System.Drawing.Point(309, 64);
             this.browseRemoteFolderButton.Name = "browseRemoteFolderButton";
             this.browseRemoteFolderButton.Size = new System.Drawing.Size(161, 30);
             this.browseRemoteFolderButton.TabIndex = 6;
@@ -144,7 +146,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbConsole.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.rtbConsole.ForeColor = System.Drawing.Color.White;
-            this.rtbConsole.Location = new System.Drawing.Point(13, 202);
+            this.rtbConsole.Location = new System.Drawing.Point(12, 227);
             this.rtbConsole.Name = "rtbConsole";
             this.rtbConsole.ReadOnly = true;
             this.rtbConsole.Size = new System.Drawing.Size(532, 46);
@@ -158,21 +160,22 @@
             this.progressLabel.BackColor = System.Drawing.Color.Transparent;
             this.progressLabel.Enabled = false;
             this.progressLabel.ForeColor = System.Drawing.Color.White;
-            this.progressLabel.Location = new System.Drawing.Point(195, 172);
+            this.progressLabel.Location = new System.Drawing.Point(195, 200);
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(48, 13);
             this.progressLabel.TabIndex = 8;
             this.progressLabel.Text = "Progress";
             this.progressLabel.Visible = false;
             // 
-            // panelTop
+            // panelMenu
             // 
-            this.panelTop.Controls.Add(this.menuStrip1);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(557, 27);
-            this.panelTop.TabIndex = 10;
+            this.panelMenu.Controls.Add(this.menuStrip1);
+            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelMenu.Location = new System.Drawing.Point(60, 0);
+            this.panelMenu.Margin = new System.Windows.Forms.Padding(0);
+            this.panelMenu.Name = "panelMenu";
+            this.panelMenu.Size = new System.Drawing.Size(497, 37);
+            this.panelMenu.TabIndex = 10;
             // 
             // menuStrip1
             // 
@@ -184,7 +187,7 @@
             this.closeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(557, 31);
+            this.menuStrip1.Size = new System.Drawing.Size(497, 31);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMain_MouseDown);
@@ -197,8 +200,8 @@
             this.selectRemoteFolderToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(29, 27);
+            this.fileToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 27);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openLocalFileToolStripMenuItem
@@ -251,7 +254,7 @@
             // kBToolStripMenuItem
             // 
             this.kBToolStripMenuItem.Name = "kBToolStripMenuItem";
-            this.kBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kBToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.kBToolStripMenuItem.Text = "512 KB";
             this.kBToolStripMenuItem.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -260,28 +263,28 @@
             this.mBToolStripMenuItem.Checked = true;
             this.mBToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mBToolStripMenuItem.Name = "mBToolStripMenuItem";
-            this.mBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mBToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.mBToolStripMenuItem.Text = "1 MB";
             this.mBToolStripMenuItem.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // mBToolStripMenuItem1
             // 
             this.mBToolStripMenuItem1.Name = "mBToolStripMenuItem1";
-            this.mBToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.mBToolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
             this.mBToolStripMenuItem1.Text = "2 MB";
             this.mBToolStripMenuItem1.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // mBToolStripMenuItem2
             // 
             this.mBToolStripMenuItem2.Name = "mBToolStripMenuItem2";
-            this.mBToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.mBToolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
             this.mBToolStripMenuItem2.Text = "4 MB";
             this.mBToolStripMenuItem2.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // mBToolStripMenuItem3
             // 
             this.mBToolStripMenuItem3.Name = "mBToolStripMenuItem3";
-            this.mBToolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.mBToolStripMenuItem3.Size = new System.Drawing.Size(109, 22);
             this.mBToolStripMenuItem3.Text = "8 MB";
             this.mBToolStripMenuItem3.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -346,7 +349,7 @@
             // consoleOutputToolStripMenuItem
             // 
             this.consoleOutputToolStripMenuItem.Name = "consoleOutputToolStripMenuItem";
-            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.consoleOutputToolStripMenuItem.Text = "Show Console";
             this.consoleOutputToolStripMenuItem.Click += new System.EventHandler(this.consoleOutputToolStripMenuItem_Click);
             // 
@@ -381,13 +384,28 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // toolTip1
+            // panelTop
             // 
-            this.toolTip1.AutoPopDelay = 5000;
-            this.toolTip1.ForeColor = System.Drawing.Color.Black;
-            this.toolTip1.InitialDelay = 500;
-            this.toolTip1.ReshowDelay = 1000;
-            this.toolTip1.StripAmpersands = true;
+            this.panelTop.Controls.Add(this.pictureBox1);
+            this.panelTop.Controls.Add(this.panelMenu);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Margin = new System.Windows.Forms.Padding(0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(557, 37);
+            this.panelTop.TabIndex = 11;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = global::ResumeXfer.Properties.Resources.banner;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(60, 37);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMain_MouseDown);
             // 
             // uploadButton
             // 
@@ -397,7 +415,7 @@
             this.uploadButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uploadButton.Enabled = false;
             this.uploadButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.uploadButton.Location = new System.Drawing.Point(473, 122);
+            this.uploadButton.Location = new System.Drawing.Point(473, 155);
             this.uploadButton.Margin = new System.Windows.Forms.Padding(0);
             this.uploadButton.Name = "uploadButton";
             this.uploadButton.Size = new System.Drawing.Size(68, 45);
@@ -415,10 +433,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(557, 263);
+            this.ClientSize = new System.Drawing.Size(557, 285);
+            this.Controls.Add(this.panelTop);
             this.Controls.Add(this.remoteFilePathTextBox);
             this.Controls.Add(this.localFilePathTextBox);
-            this.Controls.Add(this.panelTop);
             this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.rtbConsole);
             this.Controls.Add(this.browseRemoteFolderButton);
@@ -434,10 +452,12 @@
             this.Name = "frmMain";
             this.Text = "Resume X fer";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMain_MouseDown);
-            this.panelTop.ResumeLayout(false);
-            this.panelTop.PerformLayout();
+            this.panelMenu.ResumeLayout(false);
+            this.panelMenu.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panelTop.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,8 +474,7 @@
         private System.Windows.Forms.Button browseRemoteFolderButton;
         private System.Windows.Forms.RichTextBox rtbConsole;
         private System.Windows.Forms.Label progressLabel;
-        private System.Windows.Forms.Panel panelTop;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openLocalFileToolStripMenuItem;
@@ -479,6 +498,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.Panel panelTop;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
