@@ -19,7 +19,7 @@ This project provides a Windows Forms application that allows for file uploads w
 ## Getting Started
 
 1. **Clone the Repository**:
-   git clone https://github.com/Stromnatic/ResumeXfer.git
+   git clone https://github.com/Sixtyneer/ResumeXfer.git
 
 3. **Open the Project**:
    Open the solution file (ResumeXfer.sln) in Visual Studio.
