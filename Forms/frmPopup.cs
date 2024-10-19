@@ -49,9 +49,9 @@ namespace ResumeXfer.Forms
         }
         public void FadeInPopup()
         {
-            Opacity = 0; // Reset opacity to 0 before showing
-            Show(); // Display the form
-            fadeInTimer.Start(); // Start the fade-in effect
+            Opacity = 0;
+            Show();
+            fadeInTimer.Start();
         }
     }
 }

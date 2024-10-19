@@ -1,4 +1,5 @@
 ﻿using ResumeXfer.Forms;
+using ResumeXfer.Properties;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -75,34 +76,17 @@ namespace ResumeXfer
         {
             localFilePath = localFilePathTextBox.Text;
             remoteFolderPath = remoteFilePathTextBox.Text;
-            
+
             // If already uploading, handle pause/resume logic
             if (cancellationTokenSource != null && !isPaused)
             {
-                // Pause the upload
-                isPaused = true;
-                cancellationTokenSource.Cancel();
-                uploadButton.BackgroundImage = Image.FromFile("Upload.png"); // Change to resume button icon
-                rtbConsole.Text = DateTime.Now + " Upload paused.";
+                Pause();
                 return;
             }
-
             // If resuming
             if (isPaused)
             {
-                // Resume the upload
-                isPaused = false;
-                uploadButton.BackgroundImage = Image.FromFile("pause.png"); // Change to pause button icon
-                rtbConsole.Text = DateTime.Now + " Resuming upload...";
-                localFilePath = localFilePathTextBox.Text;
-                remoteFolderPath = remoteFilePathTextBox.Text;
-
-                if (ValidatePaths())
-                {
-                    string remoteFilePath = Path.Combine(remoteFolderPath, Path.GetFileName(localFilePath));
-                    cancellationTokenSource = new CancellationTokenSource(); // Create a new token for resuming
-                    await UploadFileWithResume(localFilePath, remoteFilePath, cancellationTokenSource.Token);
-                }
+                Resume();
                 return;
             }
             
@@ -111,8 +95,31 @@ namespace ResumeXfer
             {
                 originalLocalFilePath = localFilePathTextBox.Text; // Store the original path
                 string remoteFilePath = Path.Combine(remoteFolderPath, Path.GetFileName(localFilePath));
-                uploadButton.BackgroundImage = Image.FromFile("pause.png"); // Change to pause button icon
+                uploadButton.BackgroundImage = Resources.Pause; // Change to pause button icon
                 cancellationTokenSource = new CancellationTokenSource(); // Create the cancellation token
+                await UploadFileWithResume(localFilePath, remoteFilePath, cancellationTokenSource.Token);
+            }
+        }
+        private void Pause() // Pause the upload
+        {
+            isPaused = true;
+            cancellationTokenSource.Cancel();
+            uploadButton.BackgroundImage = Resources.Upload; // Change to resume button icon
+            rtbConsole.Text = DateTime.Now + " Upload paused.";
+        }
+        
+        private async void Resume() // Resume the upload
+        {
+            isPaused = false;
+            uploadButton.BackgroundImage = Resources.Pause; //Image.FromFile("pause.png"); // Change to pause button icon
+            rtbConsole.Text = DateTime.Now + " Resuming upload.";
+            localFilePath = localFilePathTextBox.Text;
+            remoteFolderPath = remoteFilePathTextBox.Text;
+
+            if (ValidatePaths())
+            {
+                string remoteFilePath = Path.Combine(remoteFolderPath, Path.GetFileName(localFilePath));
+                cancellationTokenSource = new CancellationTokenSource(); // Create a new token for resuming
                 await UploadFileWithResume(localFilePath, remoteFilePath, cancellationTokenSource.Token);
             }
         }
@@ -190,12 +197,12 @@ namespace ResumeXfer
                             break;
                         }
 
-                        // Check if cancel was requested
+                        /*Check if cancel was requested
                         if (cancelRequested)
                         {
                             rtbConsole.Text = $"{DateTime.Now} Upload canceled at {progressBar1.Value}% completion.";
                             break; // Exit the upload loop
-                        }
+                        }*/
                         try
                         {
                             bytesRead = await localStream.ReadAsync(buffer, 0, buffer.Length);
@@ -277,7 +284,7 @@ namespace ResumeXfer
             finally
             {
                 ToggleUIControls(true);
-                uploadButton.BackgroundImage = Image.FromFile("upload.png"); // Reset button to default
+                uploadButton.BackgroundImage = Resources.Upload; // Reset button to default
                 cancelRequested = false; // Reset cancel flag for future uploads
                 cancellationTokenSource = null; // Reset after the task is completed
             }
@@ -311,7 +318,7 @@ namespace ResumeXfer
                 // If the file path is changed to something else, reset to upload icon
                 if (isPaused)
                 {
-                    uploadButton.BackgroundImage = Image.FromFile("upload.png");
+                    uploadButton.BackgroundImage = Resources.Upload;
                     isPaused = false; // Reset pause state
                 }
             }
@@ -324,7 +331,7 @@ namespace ResumeXfer
             // Reset to upload icon if changes are made while paused
             if (isPaused)
             {
-                uploadButton.BackgroundImage = Image.FromFile("upload.png");
+                uploadButton.BackgroundImage = Resources.Upload;
                 isPaused = false; // Reset pause state
             }
         }
@@ -350,13 +357,14 @@ namespace ResumeXfer
         {
             if (progressBar1.Value > 0 && progressBar1.Value < 100) // If the upload is in progress
             {
+                Pause();
                 var res = MessageBox.Show("An upload is in progress. Are you sure you want to quit?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (res == DialogResult.Yes)
                 {
-                    CancelUpload(); 
+                    CancelUpload();
                     Close();
                 }
-                else rtbConsole.Text = "The upload continued";
+                else { rtbConsole.Text = "The upload continued"; Resume(); }
             }
             else
             {
@@ -411,10 +419,13 @@ namespace ResumeXfer
                 consoleOutputToolStripMenuItem.Text = "Show Console";
             }
         }
-        private void bufferSizeToolStripMenuItem_DoubleClick(object sender, EventArgs e)
-        {
-            var buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
-        }
+        /* 
+         private void bufferSizeToolStripMenuItem_DoubleClick(object sender, EventArgs e)
+         {
+             var buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
+         }
+        */
+
         frmPopup popupForm = new frmPopup();
         private void uploadButton_MouseEnter(object sender, EventArgs e)
         {
