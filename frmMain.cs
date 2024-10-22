@@ -4,8 +4,8 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -111,7 +111,7 @@ namespace ResumeXfer
         private async void Resume() // Resume the upload
         {
             isPaused = false;
-            uploadButton.BackgroundImage = Resources.Pause; //Image.FromFile("pause.png"); // Change to pause button icon
+            uploadButton.BackgroundImage = Resources.Pause; // Change to pause button icon
             rtbConsole.Text = DateTime.Now + " Resuming upload.";
             localFilePath = localFilePathTextBox.Text;
             remoteFolderPath = remoteFilePathTextBox.Text;
@@ -159,6 +159,7 @@ namespace ResumeXfer
         {
             return Path.IsPathRooted(remoteFolderPath) && Directory.Exists(remoteFolderPath);
         }
+        frmNotification frmNotification;
         private int maxUploadSpeed = 1024; // Maximum upload speed in KB/s (example: 1024 KB/s = 1 MB/s)
         private async Task UploadFileWithResume(string localFilePath, string remoteFilePath, CancellationToken cancellationToken)
         {
@@ -196,13 +197,6 @@ namespace ResumeXfer
                             rtbConsole.Text = DateTime.Now + $" Upload paused by user at {progressBar1.Value}% completion...";
                             break;
                         }
-
-                        /*Check if cancel was requested
-                        if (cancelRequested)
-                        {
-                            rtbConsole.Text = $"{DateTime.Now} Upload canceled at {progressBar1.Value}% completion.";
-                            break; // Exit the upload loop
-                        }*/
                         try
                         {
                             bytesRead = await localStream.ReadAsync(buffer, 0, buffer.Length);
@@ -275,7 +269,11 @@ namespace ResumeXfer
                     localStream?.Dispose();
                     retryCount = 0;
                 }
-                if (!cancelRequested && !cancellationToken.IsCancellationRequested) rtbConsole.Text = $"{DateTime.Now} Upload of {Path.GetFileName(localFilePath)} completed successfully.";
+                if (!cancelRequested && !cancellationToken.IsCancellationRequested)
+                {
+                    rtbConsole.Text = $"{DateTime.Now} Upload of {Path.GetFileName(localFilePath)} completed successfully.";
+                    if (isNotificationEnabled) { new frmNotification("Upload completed successfully."); }
+                }
             }
             catch (Exception ex)
             {
@@ -361,7 +359,6 @@ namespace ResumeXfer
                 var res = MessageBox.Show("An upload is in progress. Are you sure you want to quit?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (res == DialogResult.Yes)
                 {
-                    CancelUpload();
                     Close();
                 }
                 else { rtbConsole.Text = "The upload continued"; Resume(); }
@@ -371,14 +368,6 @@ namespace ResumeXfer
                 Close(); // Close directly if no upload is happening
             }
         }
-
-        private void CancelUpload()
-        {
-            cancelRequested = true;
-
-            rtbConsole.Text = $"{DateTime.Now} Upload was canceled by the user at {progressBar1.Value}% completion.";
-        }
-
         private void bufferSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (cancellationTokenSource != null) // Check if upload is in progress
@@ -389,7 +378,7 @@ namespace ResumeXfer
             ToolStripMenuItem clickedItem = sender as ToolStripMenuItem;
             foreach (ToolStripMenuItem item in clickedItem.GetCurrentParent().Items)
             {
-                if (item == clickedItem) 
+                if (item == clickedItem)
                 {
                     clickedItem.Checked = true;
                     switch (clickedItem.Text)
@@ -405,7 +394,6 @@ namespace ResumeXfer
                 item.Checked = false;
             }
         }
-
         private void consoleOutputToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!rtbConsole.Visible)
@@ -495,6 +483,27 @@ namespace ResumeXfer
         {
             // Move the button down and right by 2 pixels
             uploadButton.Location = new Point(uploadButton.Location.X - 2, uploadButton.Location.Y - 2);
+        }
+        bool isNotificationEnabled = Settings.Default.NotificationEnabled;
+        private void uploadCompletionNotificationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = sender as ToolStripMenuItem;
+            foreach (ToolStripMenuItem item in clickedItem.GetCurrentParent().Items)
+            {
+                if (item == clickedItem)
+                {
+                    clickedItem.Checked = true;
+                    Settings.Default.NotificationEnabled = clickedItem.Text == "Enabled" ? true : false;
+                    Settings.Default.Save(); // Persist the change
+                }
+                else item.Checked = false;
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            MessageBox.Show("Version: " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
         }
     }
 }

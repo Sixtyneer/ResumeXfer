@@ -55,6 +55,9 @@
             this.tSMI_retries_50 = new System.Windows.Forms.ToolStripMenuItem();
             this.tSMI_retries_150 = new System.Windows.Forms.ToolStripMenuItem();
             this.tSMI_retries_300 = new System.Windows.Forms.ToolStripMenuItem();
+            this.uploadCompletionNotificationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consoleOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -217,7 +220,8 @@
             // 
             this.settingsToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bufferSizeToolStripMenuItem,
-            this.maximumRetriesToolStripMenuItem});
+            this.maximumRetriesToolStripMenuItem,
+            this.uploadCompletionNotificationToolStripMenuItem});
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
             this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem1.Text = "Settings";
@@ -231,13 +235,13 @@
             this.TSMI_buffer_4096,
             this.TSMI_buffer_8192});
             this.bufferSizeToolStripMenuItem.Name = "bufferSizeToolStripMenuItem";
-            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.bufferSizeToolStripMenuItem.Text = "Buffer Size";
             // 
             // TSMI_buffer_512
             // 
             this.TSMI_buffer_512.Name = "TSMI_buffer_512";
-            this.TSMI_buffer_512.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_buffer_512.Size = new System.Drawing.Size(109, 22);
             this.TSMI_buffer_512.Text = "512 KB";
             this.TSMI_buffer_512.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -246,28 +250,28 @@
             this.TSMI_buffer_1024.Checked = true;
             this.TSMI_buffer_1024.CheckState = System.Windows.Forms.CheckState.Checked;
             this.TSMI_buffer_1024.Name = "TSMI_buffer_1024";
-            this.TSMI_buffer_1024.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_buffer_1024.Size = new System.Drawing.Size(109, 22);
             this.TSMI_buffer_1024.Text = "1 MB";
             this.TSMI_buffer_1024.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // TSMI_buffer_2048
             // 
             this.TSMI_buffer_2048.Name = "TSMI_buffer_2048";
-            this.TSMI_buffer_2048.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_buffer_2048.Size = new System.Drawing.Size(109, 22);
             this.TSMI_buffer_2048.Text = "2 MB";
             this.TSMI_buffer_2048.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // TSMI_buffer_4096
             // 
             this.TSMI_buffer_4096.Name = "TSMI_buffer_4096";
-            this.TSMI_buffer_4096.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_buffer_4096.Size = new System.Drawing.Size(109, 22);
             this.TSMI_buffer_4096.Text = "4 MB";
             this.TSMI_buffer_4096.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // TSMI_buffer_8192
             // 
             this.TSMI_buffer_8192.Name = "TSMI_buffer_8192";
-            this.TSMI_buffer_8192.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_buffer_8192.Size = new System.Drawing.Size(109, 22);
             this.TSMI_buffer_8192.Text = "8 MB";
             this.TSMI_buffer_8192.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -280,7 +284,7 @@
             this.tSMI_retries_150,
             this.tSMI_retries_300});
             this.maximumRetriesToolStripMenuItem.Name = "maximumRetriesToolStripMenuItem";
-            this.maximumRetriesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.maximumRetriesToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.maximumRetriesToolStripMenuItem.Text = "Maximum Retries";
             // 
             // tSMI_retries_Infinity
@@ -288,37 +292,62 @@
             this.tSMI_retries_Infinity.Checked = true;
             this.tSMI_retries_Infinity.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tSMI_retries_Infinity.Name = "tSMI_retries_Infinity";
-            this.tSMI_retries_Infinity.Size = new System.Drawing.Size(180, 22);
+            this.tSMI_retries_Infinity.Size = new System.Drawing.Size(111, 22);
             this.tSMI_retries_Infinity.Text = "Infinity";
             this.tSMI_retries_Infinity.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // tSMI_retries_20
             // 
             this.tSMI_retries_20.Name = "tSMI_retries_20";
-            this.tSMI_retries_20.Size = new System.Drawing.Size(180, 22);
+            this.tSMI_retries_20.Size = new System.Drawing.Size(111, 22);
             this.tSMI_retries_20.Text = "20";
             this.tSMI_retries_20.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // tSMI_retries_50
             // 
             this.tSMI_retries_50.Name = "tSMI_retries_50";
-            this.tSMI_retries_50.Size = new System.Drawing.Size(180, 22);
+            this.tSMI_retries_50.Size = new System.Drawing.Size(111, 22);
             this.tSMI_retries_50.Text = "50";
             this.tSMI_retries_50.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // tSMI_retries_150
             // 
             this.tSMI_retries_150.Name = "tSMI_retries_150";
-            this.tSMI_retries_150.Size = new System.Drawing.Size(180, 22);
+            this.tSMI_retries_150.Size = new System.Drawing.Size(111, 22);
             this.tSMI_retries_150.Text = "150";
             this.tSMI_retries_150.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // tSMI_retries_300
             // 
             this.tSMI_retries_300.Name = "tSMI_retries_300";
-            this.tSMI_retries_300.Size = new System.Drawing.Size(180, 22);
+            this.tSMI_retries_300.Size = new System.Drawing.Size(111, 22);
             this.tSMI_retries_300.Text = "300";
             this.tSMI_retries_300.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
+            // 
+            // uploadCompletionNotificationToolStripMenuItem
+            // 
+            this.uploadCompletionNotificationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enabledToolStripMenuItem,
+            this.disabledToolStripMenuItem});
+            this.uploadCompletionNotificationToolStripMenuItem.Name = "uploadCompletionNotificationToolStripMenuItem";
+            this.uploadCompletionNotificationToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.uploadCompletionNotificationToolStripMenuItem.Text = "Upload completion notification";
+            // 
+            // enabledToolStripMenuItem
+            // 
+            this.enabledToolStripMenuItem.Name = "enabledToolStripMenuItem";
+            this.enabledToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.enabledToolStripMenuItem.Text = "Enabled";
+            this.enabledToolStripMenuItem.Click += new System.EventHandler(this.uploadCompletionNotificationToolStripMenuItem_Click);
+            // 
+            // disabledToolStripMenuItem
+            // 
+            this.disabledToolStripMenuItem.Checked = true;
+            this.disabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.disabledToolStripMenuItem.Name = "disabledToolStripMenuItem";
+            this.disabledToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.disabledToolStripMenuItem.Text = "Disabled";
+            this.disabledToolStripMenuItem.Click += new System.EventHandler(this.uploadCompletionNotificationToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -331,7 +360,7 @@
             // consoleOutputToolStripMenuItem
             // 
             this.consoleOutputToolStripMenuItem.Name = "consoleOutputToolStripMenuItem";
-            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.consoleOutputToolStripMenuItem.Text = "Show Console";
             this.consoleOutputToolStripMenuItem.Click += new System.EventHandler(this.consoleOutputToolStripMenuItem_Click);
             // 
@@ -355,6 +384,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // cancelToolStripMenuItem
             // 
@@ -480,6 +510,9 @@
         private System.Windows.Forms.ToolStripMenuItem tSMI_retries_50;
         private System.Windows.Forms.ToolStripMenuItem tSMI_retries_150;
         private System.Windows.Forms.ToolStripMenuItem tSMI_retries_300;
+        private System.Windows.Forms.ToolStripMenuItem uploadCompletionNotificationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enabledToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disabledToolStripMenuItem;
     }
 }
 
