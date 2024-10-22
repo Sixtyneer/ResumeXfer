@@ -31,7 +31,7 @@ This project provides a Windows Forms application that allows for file uploads w
 
   - Select the Local File: Click on the "Browse Local File" button to select the file you wish to upload.
   - Select the Remote Folder: Click on the "Browse Remote Folder" button to choose the destination folder where the file will be uploaded.
-  - Upload the File: Once both paths are selected, click the "Upload" button. The progress bar will start filling up, showing the current progress of the upload. You will also see the upload speed and the total number of bytes uploaded.
+  - Upload the File: Once both paths are selected, click the Play button. The progress bar will start filling up, showing the current progress of the upload. You will also see the upload speed and the total number of bytes uploaded.
   - Handling Disconnections: If the connection is lost during the upload, the application will automatically retry after a 5-second delay and continue from where it left off.
 
 
