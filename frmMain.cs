@@ -139,13 +139,13 @@ namespace ResumeXfer
 
             if (!isLocalPathValid)
             {
-                MessageBox.Show("The local file path is invalid or the file does not exist.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                new frmNotification("The local file path is invalid or the file does not exist.", "Invalid Path", false).Show();
                 uploadButton.Enabled = true;
                 return false;
             }
             if (!isRemotePathValid)
             {
-                MessageBox.Show("The remote folder path is invalid or the directory does not exist.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+                new frmNotification("The remote folder path is invalid or the directory does not exist.", "Invalid Path", false).Show();
                 uploadButton.Enabled = true;
                 return false;
             }
@@ -159,7 +159,7 @@ namespace ResumeXfer
         {
             return Path.IsPathRooted(remoteFolderPath) && Directory.Exists(remoteFolderPath);
         }
-        frmNotification frmNotification;
+
         private int maxUploadSpeed = 1024; // Maximum upload speed in KB/s (example: 1024 KB/s = 1 MB/s)
         private async Task UploadFileWithResume(string localFilePath, string remoteFilePath, CancellationToken cancellationToken)
         {
@@ -248,7 +248,7 @@ namespace ResumeXfer
                                 retryCount++;
                                 if (retryCount >= maxRetries)
                                 {
-                                    MessageBox.Show($"Upload failed after {maxRetries} attempts..", "Upload Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    new frmNotification($"Upload failed after {maxRetries} attempts..", "Upload Error", false).Show();
                                     break;
                                 }
                             }
@@ -272,7 +272,7 @@ namespace ResumeXfer
                 if (!cancelRequested && !cancellationToken.IsCancellationRequested)
                 {
                     rtbConsole.Text = $"{DateTime.Now} Upload of {Path.GetFileName(localFilePath)} completed successfully.";
-                    if (isNotificationEnabled) { new frmNotification("Upload completed successfully."); }
+                    if (isNotificationEnabled) new frmNotification("Upload completed successfully.", "Information", false).Show();
                 }
             }
             catch (Exception ex)
@@ -284,7 +284,11 @@ namespace ResumeXfer
                 ToggleUIControls(true);
                 uploadButton.BackgroundImage = Resources.Upload; // Reset button to default
                 cancelRequested = false; // Reset cancel flag for future uploads
-                cancellationTokenSource = null; // Reset after the task is completed
+                if (cancellationTokenSource != null)
+                {
+                    cancellationTokenSource = null; // Reset after the task is completed
+                }
+                
             }
         }
 
@@ -333,30 +337,12 @@ namespace ResumeXfer
                 isPaused = false; // Reset pause state
             }
         }
-
-        // Constants to handle the dragging
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-
-        // Import necessary functions from user32.dll
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-        private void frmMain_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (progressBar1.Value > 0 && progressBar1.Value < 100) // If the upload is in progress
             {
                 Pause();
-                var res = MessageBox.Show("An upload is in progress. Are you sure you want to quit?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var res = new frmNotification("An upload is in progress. Are you sure you want to quit?", "Confirm Exit", true).ShowDialog();
                 if (res == DialogResult.Yes)
                 {
                     Close();
@@ -372,7 +358,7 @@ namespace ResumeXfer
         {
             if (cancellationTokenSource != null) // Check if upload is in progress
             {
-                MessageBox.Show("You cannot change the buffer size while an upload is in progress.", "Buffer Size Change", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                new frmNotification("You cannot change the buffer size while an upload is in progress.", "Buffer Size Change", false).Show();
                 return; // Exit the method without changing the buffer size
             }
             ToolStripMenuItem clickedItem = sender as ToolStripMenuItem;
@@ -484,7 +470,7 @@ namespace ResumeXfer
             // Move the button down and right by 2 pixels
             uploadButton.Location = new Point(uploadButton.Location.X - 2, uploadButton.Location.Y - 2);
         }
-        bool isNotificationEnabled = Settings.Default.NotificationEnabled;
+        bool isNotificationEnabled = false;
         private void uploadCompletionNotificationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem clickedItem = sender as ToolStripMenuItem;
@@ -493,8 +479,7 @@ namespace ResumeXfer
                 if (item == clickedItem)
                 {
                     clickedItem.Checked = true;
-                    Settings.Default.NotificationEnabled = clickedItem.Text == "Enabled" ? true : false;
-                    Settings.Default.Save(); // Persist the change
+                    isNotificationEnabled = clickedItem.Text == "Enabled" ? true : false;
                 }
                 else item.Checked = false;
             }
@@ -504,6 +489,24 @@ namespace ResumeXfer
         {
 
             MessageBox.Show("Version: " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+        }
+
+        // Constants to handle the dragging
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        // Import necessary functions from user32.dll
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+        private void frmMain_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
     }
 }

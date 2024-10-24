@@ -22,17 +22,5 @@ namespace ResumeXfer.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool NotificationEnabled {
-            get {
-                return ((bool)(this["NotificationEnabled"]));
-            }
-            set {
-                this["NotificationEnabled"] = value;
-            }
-        }
     }
 }
