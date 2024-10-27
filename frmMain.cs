@@ -341,18 +341,11 @@ namespace ResumeXfer
         {
             if (progressBar1.Value > 0 && progressBar1.Value < 100) // If the upload is in progress
             {
-                Pause();
+                if (!isPaused) Pause();
                 var res = new frmNotification("An upload is in progress. Are you sure you want to quit?", "Confirm Exit", true).ShowDialog();
-                if (res == DialogResult.Yes)
-                {
-                    Close();
-                }
-                else { rtbConsole.Text = "The upload continued"; Resume(); }
+                if (res == DialogResult.Yes) Close();
             }
-            else
-            {
-                Close(); // Close directly if no upload is happening
-            }
+            else Close(); // Close directly if no upload is happening
         }
         private void bufferSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
