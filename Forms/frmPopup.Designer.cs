@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.lblPopup = new System.Windows.Forms.Label();
             this.fadeInTimer = new System.Windows.Forms.Timer(this.components);
+            this.fadeOutTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // lblPopup
@@ -46,6 +47,11 @@
             // 
             this.fadeInTimer.Interval = 30;
             this.fadeInTimer.Tick += new System.EventHandler(this.fadeInTimer_Tick);
+            // 
+            // fadeOutTimer
+            // 
+            this.fadeOutTimer.Interval = 30;
+            this.fadeOutTimer.Tick += new System.EventHandler(this.fadeOutTimer_Tick);
             // 
             // frmPopup
             // 
@@ -68,5 +74,6 @@
 
         private System.Windows.Forms.Label lblPopup;
         private System.Windows.Forms.Timer fadeInTimer;
+        private System.Windows.Forms.Timer fadeOutTimer;
     }
 }

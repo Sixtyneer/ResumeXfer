@@ -254,7 +254,7 @@ namespace ResumeXfer
                             }
                             
                             // Handle disconnection
-                            rtbConsole.Text = DateTime.Now + " Connection lost. Retrying... " + (maxRetries == -1 ? "(IO Exception)" : $"({retryCount}/{maxRetries})");
+                            rtbConsole.Text = DateTime.Now + " Connection lost. Retrying... (IO Exception)" + (maxRetries == -1 ? "" : $"({retryCount}/{maxRetries})");
                             await Task.Delay(5000); // Wait for 5 seconds before retrying
 
                             // Reopen the local file stream and seek to the current position
@@ -284,11 +284,7 @@ namespace ResumeXfer
                 ToggleUIControls(true);
                 uploadButton.BackgroundImage = Resources.Upload; // Reset button to default
                 cancelRequested = false; // Reset cancel flag for future uploads
-                if (cancellationTokenSource != null)
-                {
-                    cancellationTokenSource = null; // Reset after the task is completed
-                }
-                
+                if (cancellationTokenSource != null) cancellationTokenSource = null; // Reset after the task is completed
             }
         }
 
@@ -392,7 +388,6 @@ namespace ResumeXfer
              var buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
          }
         */
-
         frmPopup popupForm = new frmPopup();
         private void uploadButton_MouseEnter(object sender, EventArgs e)
         {
@@ -427,7 +422,7 @@ namespace ResumeXfer
 
         private void uploadButton_MouseLeave(object sender, EventArgs e)
         {
-            popupForm.Hide();
+            popupForm.FadeOutPopup();
         }
 
         private void MaxRetrytoolStripMenuItem_Click(object sender, EventArgs e)
@@ -480,8 +475,7 @@ namespace ResumeXfer
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            MessageBox.Show("Version: " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            new frmAboutBox().ShowDialog();
         }
 
         // Constants to handle the dragging
