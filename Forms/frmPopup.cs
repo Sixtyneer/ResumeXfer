@@ -42,7 +42,7 @@ namespace ResumeXfer.Forms
         }
         public void FadeInPopup()
         {
-            fadeOutTimer.Stop();
+            if (fadeOutTimer.Enabled) { fadeOutTimer.Stop(); }
             Opacity = 0;
             Show();
             fadeInTimer.Start();

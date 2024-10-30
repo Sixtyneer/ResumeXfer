@@ -361,7 +361,7 @@
             // consoleOutputToolStripMenuItem
             // 
             this.consoleOutputToolStripMenuItem.Name = "consoleOutputToolStripMenuItem";
-            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.consoleOutputToolStripMenuItem.Text = "Show Console";
             this.consoleOutputToolStripMenuItem.Click += new System.EventHandler(this.consoleOutputToolStripMenuItem_Click);
             // 
@@ -377,13 +377,14 @@
             // instructionsToolStripMenuItem1
             // 
             this.instructionsToolStripMenuItem1.Name = "instructionsToolStripMenuItem1";
-            this.instructionsToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.instructionsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.instructionsToolStripMenuItem1.Text = "Instructions";
+            this.instructionsToolStripMenuItem1.Click += new System.EventHandler(this.instructionsToolStripMenuItem1_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 

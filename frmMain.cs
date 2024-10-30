@@ -236,8 +236,8 @@ namespace ResumeXfer
                             progressLabel.Invoke((Action)(() =>
                             {
                                 if (speedKilobytes < 15000) progressLabel.Text = $"Progress: {totalKilobytesUploaded:F2} KB / {totalKilobytes:F2} KB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
-                                else if (speedKilobytes < 800000) speedLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/1024.0:F2} MB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
-                                else speedLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/ 1048576.0:F2} GB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
+                                if (speedKilobytes < 800000 && speedKilobytes >= 15000) speedLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/1024.0:F2} MB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
+                                if (speedKilobytes >= 800000) speedLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/ 1048576.0:F2} GB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
                             }));
 
                         }
@@ -382,12 +382,6 @@ namespace ResumeXfer
                 consoleOutputToolStripMenuItem.Text = "Show Console";
             }
         }
-        /* 
-         private void bufferSizeToolStripMenuItem_DoubleClick(object sender, EventArgs e)
-         {
-             var buffer_tooltip_text = "Choose a buffer size:\n- Larger sizes (e.g., 4 MB, 8 MB) require a faster and more stable network.\n- Smaller sizes (e.g., 512 KB, 1 MB) are better for low-bandwidth or unstable connections.";
-         }
-        */
         frmPopup popupForm = new frmPopup();
         private void uploadButton_MouseEnter(object sender, EventArgs e)
         {
@@ -494,6 +488,11 @@ namespace ResumeXfer
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
+        }
+
+        private void instructionsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new frmInstructions().Show();
         }
     }
 }
