@@ -63,7 +63,6 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.02086F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(417, 197);
             this.tableLayoutPanel.TabIndex = 0;
-            this.tableLayoutPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmAboutBox_MouseDown);
             // 
             // labelProductName
             // 
@@ -77,7 +76,6 @@
             this.labelProductName.TabIndex = 19;
             this.labelProductName.Text = "Product Name";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelProductName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmAboutBox_MouseDown);
             // 
             // labelVersion
             // 
@@ -91,7 +89,6 @@
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelVersion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmAboutBox_MouseDown);
             // 
             // labelCopyright
             // 
@@ -105,7 +102,6 @@
             this.labelCopyright.TabIndex = 21;
             this.labelCopyright.Text = "Copyright";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelCopyright.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmAboutBox_MouseDown);
             // 
             // labelCompanyName
             // 
@@ -119,7 +115,6 @@
             this.labelCompanyName.TabIndex = 22;
             this.labelCompanyName.Text = "Company Name";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelCompanyName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmAboutBox_MouseDown);
             // 
             // textBoxDescription
             // 
@@ -150,7 +145,6 @@
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
-            this.logoPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmAboutBox_MouseDown);
             // 
             // okButton
             // 
@@ -182,7 +176,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmAboutBox";
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmAboutBox_MouseDown);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();

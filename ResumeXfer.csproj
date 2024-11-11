@@ -94,6 +94,8 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DraggableHelper.cs" />
+    <Compile Include="Interfaces\IDraggable.cs" />
     <Compile Include="MainForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

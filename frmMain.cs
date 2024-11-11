@@ -1,11 +1,10 @@
 ﻿using ResumeXfer.Forms;
+using ResumeXfer.Helpers;
 using ResumeXfer.Properties;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,12 +19,15 @@ namespace ResumeXfer
         private bool cancelRequested = false;
         private bool isPaused = false;
         private CancellationTokenSource cancellationTokenSource;
+        private readonly IDraggable _draggable;
 
         public frmMain()
         {
             InitializeComponent();
             Coloring();
             menuStrip1.Renderer = new menuStripRender();
+            _draggable = new DraggableHelper();
+            _draggable.MoveingForm(this); // Makes the form draggable
         }
         private void Coloring() 
         {
@@ -139,13 +141,13 @@ namespace ResumeXfer
 
             if (!isLocalPathValid)
             {
-                new frmNotification("The local file path is invalid or the file does not exist.", "Invalid Path", false).Show();
+                frmNotification.ShowNotification("The local file path is invalid or the file does not exist.", "Invalid Path", false);
                 uploadButton.Enabled = true;
                 return false;
             }
             if (!isRemotePathValid)
             {
-                new frmNotification("The remote folder path is invalid or the directory does not exist.", "Invalid Path", false).Show();
+                frmNotification.ShowNotification("The remote folder path is invalid or the directory does not exist.", "Invalid Path", false);
                 uploadButton.Enabled = true;
                 return false;
             }
@@ -248,7 +250,7 @@ namespace ResumeXfer
                                 retryCount++;
                                 if (retryCount >= maxRetries)
                                 {
-                                    new frmNotification($"Upload failed after {maxRetries} attempts..", "Upload Error", false).Show();
+                                    frmNotification.ShowNotification($"Upload failed after {maxRetries} attempts..", "Upload Error", false);
                                     break;
                                 }
                             }
@@ -272,7 +274,7 @@ namespace ResumeXfer
                 if (!cancelRequested && !cancellationToken.IsCancellationRequested)
                 {
                     rtbConsole.Text = $"{DateTime.Now} Upload of {Path.GetFileName(localFilePath)} completed successfully.";
-                    if (isNotificationEnabled) new frmNotification("Upload completed successfully.", "Information", false).Show();
+                    if (isNotificationEnabled) frmNotification.ShowNotification("Upload completed successfully.", "Information", false);
                 }
             }
             catch (Exception ex)
@@ -347,7 +349,7 @@ namespace ResumeXfer
         {
             if (cancellationTokenSource != null) // Check if upload is in progress
             {
-                new frmNotification("You cannot change the buffer size while an upload is in progress.", "Buffer Size Change", false).Show();
+                frmNotification.ShowNotification("You cannot change the buffer size while an upload is in progress.", "Buffer Size Change", false);
                 return; // Exit the method without changing the buffer size
             }
             ToolStripMenuItem clickedItem = sender as ToolStripMenuItem;
@@ -397,8 +399,8 @@ namespace ResumeXfer
                 // Get the dimensions of the popup and the main form
                 int popupWidth = popupForm.Width;
                 int popupHeight = popupForm.Height;
-                int formWidth = ClientSize.Width;
-                int formHeight = ClientSize.Height;
+                int formWidth = panelContent.Width;
+                int formHeight = panelContent.Height;
 
                 // Adjust if the popup goes outside the right edge of the form
                 if (posX + popupWidth > formWidth)
@@ -408,16 +410,13 @@ namespace ResumeXfer
                 if (posY + popupHeight > formHeight)
                     posY = uploadButton.Top - popupHeight - 5; // Show the popup above the button if not enough space below
 
-                popupForm.Location = new Point(Left + posX, Top + posY);
+                popupForm.Location = new Point(panelContent.Left + posX, panelContent.Top + posY);
 
                 popupForm.FadeInPopup();
             }
         }
 
-        private void uploadButton_MouseLeave(object sender, EventArgs e)
-        {
-            popupForm.FadeOutPopup();
-        }
+        private void uploadButton_MouseLeave(object sender, EventArgs e) => popupForm.FadeOutPopup();
 
         private void MaxRetrytoolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -470,24 +469,6 @@ namespace ResumeXfer
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new frmAboutBox().ShowDialog();
-        }
-
-        // Constants to handle the dragging
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-
-        // Import necessary functions from user32.dll
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-        private void frmMain_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
         }
 
         private void instructionsToolStripMenuItem1_Click(object sender, EventArgs e)

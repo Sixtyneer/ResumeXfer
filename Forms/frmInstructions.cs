@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using ResumeXfer.Helpers;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ResumeXfer.Forms
 {
     public partial class frmInstructions : Form
     {
+        private readonly IDraggable _draggable;
         public frmInstructions()
         {
             InitializeComponent();
             rtbContent.Text = "\nWelcome to the ResumeXfer guide! \n\n This application lets you upload files with resume capabilities, manage upload speeds, and monitor upload progress. \n * Follow the instructions below to learn how to use each feature. \n * Pick a step with the buttons on the left.";
+
+            _draggable = new DraggableHelper();
+            _draggable.MoveingForm(this); // Makes the form draggable
+
         }
 
         private void buttonStep_Click(object sender, EventArgs e)
@@ -91,24 +90,6 @@ namespace ResumeXfer.Forms
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-
-        // Constants to handle the dragging
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-        // Import necessary functions from user32.dll
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-        private void Simple_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
         }
     }
 }
