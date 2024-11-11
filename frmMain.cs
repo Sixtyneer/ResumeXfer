@@ -393,24 +393,9 @@ namespace ResumeXfer
 
                 popupForm.SetText(message);
 
-                int posX = uploadButton.Left + 10;
-                int posY = uploadButton.Bottom + 5; 
-
-                // Get the dimensions of the popup and the main form
-                int popupWidth = popupForm.Width;
-                int popupHeight = popupForm.Height;
-                int formWidth = panelContent.Width;
-                int formHeight = panelContent.Height;
-
-                // Adjust if the popup goes outside the right edge of the form
-                if (posX + popupWidth > formWidth)
-                    posX = formWidth - popupWidth - 5; // Ensure 5px padding from the right edge
-
-                // Adjust if the popup goes outside the bottom edge of the form
-                if (posY + popupHeight > formHeight)
-                    posY = uploadButton.Top - popupHeight - 5; // Show the popup above the button if not enough space below
-
-                popupForm.Location = new Point(panelContent.Left + posX, panelContent.Top + posY);
+                Point buttonPosition = uploadButton.PointToScreen(Point.Empty);
+                popupForm.StartPosition = FormStartPosition.Manual;
+                popupForm.Location = new Point(buttonPosition.X, buttonPosition.Y + uploadButton.Height);
 
                 popupForm.FadeInPopup();
             }
