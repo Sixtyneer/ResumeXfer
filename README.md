@@ -48,4 +48,8 @@ This project provides a Windows Forms application that allows for file uploads w
 
 ## Contributions are welcome! 
   Please open an issue or submit a pull request for any bugs or improvements.
+
+## UI Graphics Design
+
+Instagram: @resofiart(https://www.instagram.com/resofiart/)
  
