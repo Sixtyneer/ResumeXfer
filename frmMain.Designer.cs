@@ -68,6 +68,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.uploadButton = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
+            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMenu.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
@@ -224,7 +225,8 @@
             this.settingsToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bufferSizeToolStripMenuItem,
             this.maximumRetriesToolStripMenuItem,
-            this.uploadCompletionNotificationToolStripMenuItem});
+            this.uploadCompletionNotificationToolStripMenuItem,
+            this.languageToolStripMenuItem});
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
             this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem1.Text = "Settings";
@@ -459,6 +461,12 @@
             this.panelContent.Size = new System.Drawing.Size(557, 248);
             this.panelContent.TabIndex = 12;
             // 
+            // languageToolStripMenuItem
+            // 
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.languageToolStripMenuItem.Text = "Language";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -528,6 +536,7 @@
         private System.Windows.Forms.ToolStripMenuItem enabledToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem disabledToolStripMenuItem;
         private System.Windows.Forms.Panel panelContent;
+        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
     }
 }
 
