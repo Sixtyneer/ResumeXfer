@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ResumeXfer.Helpers;
+using System;
 using System.Drawing;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -8,6 +9,7 @@ namespace ResumeXfer.Forms
 {
     partial class frmAboutBox : Form
     {
+        private readonly IDraggable _draggable;
         public frmAboutBox()
         {
             InitializeComponent();
@@ -17,6 +19,9 @@ namespace ResumeXfer.Forms
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyCompany;
             textBoxDescription.Text = AssemblyDescription;
+
+            _draggable = new DraggableHelper();
+            _draggable.MoveingForm(this); // Makes the form draggable
         }
 
         #region Assembly Attribute Accessors
@@ -101,23 +106,6 @@ namespace ResumeXfer.Forms
 
         private void okButton_Click(object sender, EventArgs e) => Close();
 
-        // Constants to handle the dragging
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-
-        // Import necessary functions from user32.dll
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-        private void frmAboutBox_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
         frmPopup frmPopup = new frmPopup();
         private void textBoxDescription_DoubleClick(object sender, EventArgs e)
         {

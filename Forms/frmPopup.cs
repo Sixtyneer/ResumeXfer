@@ -19,14 +19,14 @@ namespace ResumeXfer.Forms
                 SizeF textSize = g.MeasureString(message, lblPopup.Font);
 
                 // Add padding to the measured size to make the form larger than the text
-                int paddingWidth = 20; // Add some padding around the text
+                int paddingWidth = 10; // Add some padding around the text
                 int paddingHeight = 10;
 
                 // Resize the form based on the text size
                 Width = (int)textSize.Width + paddingWidth;
                 Height = (int)textSize.Height + paddingHeight;
 
-                // Optionally adjust the label size to fit the form perfectly
+                // Adjust the label size to fit the form perfectly
                 lblPopup.Width = Width - paddingWidth;
                 lblPopup.Height = Height - paddingHeight;
             }

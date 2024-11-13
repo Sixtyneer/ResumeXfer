@@ -86,7 +86,6 @@
             this.rtbContent.Size = new System.Drawing.Size(488, 295);
             this.rtbContent.TabIndex = 2;
             this.rtbContent.Text = "";
-            this.rtbContent.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Simple_MouseDown);
             // 
             // panelContentTop
             // 
@@ -98,7 +97,6 @@
             this.panelContentTop.Name = "panelContentTop";
             this.panelContentTop.Size = new System.Drawing.Size(488, 78);
             this.panelContentTop.TabIndex = 1;
-            this.panelContentTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Simple_MouseDown);
             // 
             // buttonClose
             // 
@@ -124,7 +122,6 @@
             this.labelHeader.Size = new System.Drawing.Size(369, 27);
             this.labelHeader.TabIndex = 0;
             this.labelHeader.Text = "User Guide for ResumeXfer Application";
-            this.labelHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Simple_MouseDown);
             // 
             // panelMenu
             // 

@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.panelMain = new System.Windows.Forms.Panel();
+            this.btnNo = new System.Windows.Forms.Button();
+            this.btnYes = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.rtbMessage = new System.Windows.Forms.RichTextBox();
             this.panelTop = new System.Windows.Forms.Panel();
             this.lblHeader = new System.Windows.Forms.Label();
-            this.rtbMessage = new System.Windows.Forms.RichTextBox();
-            this.btnYes = new System.Windows.Forms.Button();
-            this.btnNo = new System.Windows.Forms.Button();
             this.panelMain.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +53,34 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(356, 151);
             this.panelMain.TabIndex = 0;
-            this.panelMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelMain_MouseDown);
+            // 
+            // btnNo
+            // 
+            this.btnNo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnNo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnNo.ForeColor = System.Drawing.Color.White;
+            this.btnNo.Location = new System.Drawing.Point(177, 102);
+            this.btnNo.Margin = new System.Windows.Forms.Padding(0);
+            this.btnNo.Name = "btnNo";
+            this.btnNo.Size = new System.Drawing.Size(177, 45);
+            this.btnNo.TabIndex = 4;
+            this.btnNo.Text = "No";
+            this.btnNo.UseVisualStyleBackColor = false;
+            this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
+            // 
+            // btnYes
+            // 
+            this.btnYes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnYes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnYes.ForeColor = System.Drawing.Color.White;
+            this.btnYes.Location = new System.Drawing.Point(0, 102);
+            this.btnYes.Margin = new System.Windows.Forms.Padding(0);
+            this.btnYes.Name = "btnYes";
+            this.btnYes.Size = new System.Drawing.Size(177, 45);
+            this.btnYes.TabIndex = 3;
+            this.btnYes.Text = "Yes";
+            this.btnYes.UseVisualStyleBackColor = false;
+            this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
             // 
             // btnOK
             // 
@@ -70,6 +97,22 @@
             this.btnOK.UseVisualStyleBackColor = false;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // rtbMessage
+            // 
+            this.rtbMessage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.rtbMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbMessage.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.rtbMessage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rtbMessage.ForeColor = System.Drawing.Color.White;
+            this.rtbMessage.Location = new System.Drawing.Point(0, 37);
+            this.rtbMessage.Margin = new System.Windows.Forms.Padding(5);
+            this.rtbMessage.Name = "rtbMessage";
+            this.rtbMessage.ReadOnly = true;
+            this.rtbMessage.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
+            this.rtbMessage.Size = new System.Drawing.Size(352, 60);
+            this.rtbMessage.TabIndex = 2;
+            this.rtbMessage.Text = "Error, cannot load the message!";
+            // 
             // panelTop
             // 
             this.panelTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -79,7 +122,6 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(352, 37);
             this.panelTop.TabIndex = 0;
-            this.panelTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelMain_MouseDown);
             // 
             // lblHeader
             // 
@@ -91,52 +133,6 @@
             this.lblHeader.TabIndex = 0;
             this.lblHeader.Text = "Error, cannot load the header message";
             this.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // rtbMessage
-            // 
-            this.rtbMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbMessage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.rtbMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbMessage.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.rtbMessage.ForeColor = System.Drawing.Color.White;
-            this.rtbMessage.Location = new System.Drawing.Point(54, 52);
-            this.rtbMessage.Margin = new System.Windows.Forms.Padding(5);
-            this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.ReadOnly = true;
-            this.rtbMessage.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
-            this.rtbMessage.Size = new System.Drawing.Size(262, 49);
-            this.rtbMessage.TabIndex = 2;
-            this.rtbMessage.Text = "Error, cannot load the message!";
-            this.rtbMessage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelMain_MouseDown);
-            // 
-            // btnYes
-            // 
-            this.btnYes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnYes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnYes.ForeColor = System.Drawing.Color.White;
-            this.btnYes.Location = new System.Drawing.Point(0, 102);
-            this.btnYes.Margin = new System.Windows.Forms.Padding(0);
-            this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(177, 45);
-            this.btnYes.TabIndex = 3;
-            this.btnYes.Text = "Yes";
-            this.btnYes.UseVisualStyleBackColor = false;
-            this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
-            // 
-            // btnNo
-            // 
-            this.btnNo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnNo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnNo.ForeColor = System.Drawing.Color.White;
-            this.btnNo.Location = new System.Drawing.Point(177, 102);
-            this.btnNo.Margin = new System.Windows.Forms.Padding(0);
-            this.btnNo.Name = "btnNo";
-            this.btnNo.Size = new System.Drawing.Size(177, 45);
-            this.btnNo.TabIndex = 4;
-            this.btnNo.Text = "No";
-            this.btnNo.UseVisualStyleBackColor = false;
-            this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
             // 
             // frmNotification
             // 
