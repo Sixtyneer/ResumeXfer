@@ -2,7 +2,6 @@
 using System;
 using System.Drawing;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace ResumeXfer.Forms
@@ -18,7 +17,7 @@ namespace ResumeXfer.Forms
             labelVersion.Text = string.Format("Version {0}", AssemblyVersion);
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyCompany;
-            textBoxDescription.Text = AssemblyDescription;
+            textBoxDescription.Text = AssemblyDescription + Environment.NewLine + "UI Graphics Design: https://www.instagram.com/resofiart/";
 
             _draggable = new DraggableHelper();
             _draggable.MoveingForm(this); // Makes the form draggable
