@@ -8,7 +8,6 @@ namespace ResumeXfer.Forms
 {
     public partial class frmNotification : Form
     {
-        bool buttons = true;
         private readonly IDraggable _draggable;
         public frmNotification(string message, string headermessage, bool _buttons)
         {
@@ -17,14 +16,18 @@ namespace ResumeXfer.Forms
             rtbMessage.SelectAll();
             rtbMessage.SelectionAlignment = HorizontalAlignment.Center;
             lblHeader.Text = headermessage;
-            buttons = _buttons;
-            if (!buttons)
+            if (!_buttons)
             {
                 btnYes.Visible = false;
                 btnNo.Visible = false;
             }
             _draggable = new DraggableHelper();
             _draggable.MoveingForm(this); // Makes the form draggable
+        }
+        private void frmNotification_Load(object sender, EventArgs e)
+        {
+            TopMost = true;
+            Activate();
         }
 
         // Static instance to track the currently open form
@@ -58,5 +61,6 @@ namespace ResumeXfer.Forms
             DialogResult = DialogResult.No;
             Close();
         }
+        
     }
 }

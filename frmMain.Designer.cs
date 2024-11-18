@@ -58,6 +58,7 @@
             this.uploadCompletionNotificationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consoleOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,7 +69,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.uploadButton = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
-            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMenu.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
@@ -90,10 +90,11 @@
             this.speedLabel.AutoSize = true;
             this.speedLabel.BackColor = System.Drawing.Color.Transparent;
             this.speedLabel.Enabled = false;
+            this.speedLabel.Font = new System.Drawing.Font("Reem Kufi", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.speedLabel.ForeColor = System.Drawing.Color.White;
             this.speedLabel.Location = new System.Drawing.Point(9, 150);
             this.speedLabel.Name = "speedLabel";
-            this.speedLabel.Size = new System.Drawing.Size(81, 13);
+            this.speedLabel.Size = new System.Drawing.Size(83, 19);
             this.speedLabel.TabIndex = 2;
             this.speedLabel.Text = "Upload Speed: ";
             this.speedLabel.Visible = false;
@@ -101,6 +102,7 @@
             // localFilePathTextBox
             // 
             this.localFilePathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.localFilePathTextBox.Font = new System.Drawing.Font("Reem Kufi", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.localFilePathTextBox.Location = new System.Drawing.Point(12, 66);
             this.localFilePathTextBox.Multiline = true;
             this.localFilePathTextBox.Name = "localFilePathTextBox";
@@ -111,6 +113,7 @@
             // remoteFilePathTextBox
             // 
             this.remoteFilePathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.remoteFilePathTextBox.Font = new System.Drawing.Font("Reem Kufi", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.remoteFilePathTextBox.Location = new System.Drawing.Point(309, 66);
             this.remoteFilePathTextBox.Multiline = true;
             this.remoteFilePathTextBox.Name = "remoteFilePathTextBox";
@@ -123,10 +126,11 @@
             this.browseLocalFileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(191)))), ((int)(((byte)(99)))));
             this.browseLocalFileButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(60)))));
             this.browseLocalFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.browseLocalFileButton.Font = new System.Drawing.Font("Reem Kufi", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.browseLocalFileButton.ForeColor = System.Drawing.Color.White;
-            this.browseLocalFileButton.Location = new System.Drawing.Point(12, 21);
+            this.browseLocalFileButton.Location = new System.Drawing.Point(12, 14);
             this.browseLocalFileButton.Name = "browseLocalFileButton";
-            this.browseLocalFileButton.Size = new System.Drawing.Size(154, 30);
+            this.browseLocalFileButton.Size = new System.Drawing.Size(154, 37);
             this.browseLocalFileButton.TabIndex = 5;
             this.browseLocalFileButton.Text = "Browse Local File";
             this.browseLocalFileButton.UseVisualStyleBackColor = false;
@@ -137,10 +141,11 @@
             this.browseRemoteFolderButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(191)))), ((int)(((byte)(99)))));
             this.browseRemoteFolderButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(100)))), ((int)(((byte)(60)))));
             this.browseRemoteFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.browseRemoteFolderButton.Font = new System.Drawing.Font("Reem Kufi", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.browseRemoteFolderButton.ForeColor = System.Drawing.Color.White;
-            this.browseRemoteFolderButton.Location = new System.Drawing.Point(309, 21);
+            this.browseRemoteFolderButton.Location = new System.Drawing.Point(309, 14);
             this.browseRemoteFolderButton.Name = "browseRemoteFolderButton";
-            this.browseRemoteFolderButton.Size = new System.Drawing.Size(161, 30);
+            this.browseRemoteFolderButton.Size = new System.Drawing.Size(161, 37);
             this.browseRemoteFolderButton.TabIndex = 6;
             this.browseRemoteFolderButton.Text = "Select Remote Folder";
             this.browseRemoteFolderButton.UseVisualStyleBackColor = false;
@@ -151,6 +156,7 @@
             this.rtbConsole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbConsole.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.rtbConsole.Font = new System.Drawing.Font("Reem Kufi", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rtbConsole.ForeColor = System.Drawing.Color.White;
             this.rtbConsole.Location = new System.Drawing.Point(12, 190);
             this.rtbConsole.Name = "rtbConsole";
@@ -165,10 +171,11 @@
             this.progressLabel.AutoSize = true;
             this.progressLabel.BackColor = System.Drawing.Color.Transparent;
             this.progressLabel.Enabled = false;
+            this.progressLabel.Font = new System.Drawing.Font("Reem Kufi", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.progressLabel.ForeColor = System.Drawing.Color.White;
             this.progressLabel.Location = new System.Drawing.Point(196, 150);
             this.progressLabel.Name = "progressLabel";
-            this.progressLabel.Size = new System.Drawing.Size(48, 13);
+            this.progressLabel.Size = new System.Drawing.Size(53, 19);
             this.progressLabel.TabIndex = 8;
             this.progressLabel.Text = "Progress";
             this.progressLabel.Visible = false;
@@ -185,6 +192,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Font = new System.Drawing.Font("Reem Kufi", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.settingsToolStripMenuItem1,
@@ -193,7 +201,7 @@
             this.cancelToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(497, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(497, 31);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -203,20 +211,20 @@
             this.openLocalFileToolStripMenuItem,
             this.selectRemoteFolderToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 27);
+            this.fileToolStripMenuItem.Text = "FILE";
             // 
             // openLocalFileToolStripMenuItem
             // 
             this.openLocalFileToolStripMenuItem.Name = "openLocalFileToolStripMenuItem";
-            this.openLocalFileToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.openLocalFileToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
             this.openLocalFileToolStripMenuItem.Text = "Open Local File";
             this.openLocalFileToolStripMenuItem.Click += new System.EventHandler(this.BrowseLocalFileButton_Click);
             // 
             // selectRemoteFolderToolStripMenuItem
             // 
             this.selectRemoteFolderToolStripMenuItem.Name = "selectRemoteFolderToolStripMenuItem";
-            this.selectRemoteFolderToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.selectRemoteFolderToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
             this.selectRemoteFolderToolStripMenuItem.Text = "Select Remote Folder";
             this.selectRemoteFolderToolStripMenuItem.Click += new System.EventHandler(this.BrowseRemoteFolderButton_Click);
             // 
@@ -228,8 +236,8 @@
             this.uploadCompletionNotificationToolStripMenuItem,
             this.languageToolStripMenuItem});
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem1.Text = "Settings";
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(81, 27);
+            this.settingsToolStripMenuItem1.Text = "SETTINGS";
             // 
             // bufferSizeToolStripMenuItem
             // 
@@ -240,13 +248,13 @@
             this.TSMI_buffer_4096,
             this.TSMI_buffer_8192});
             this.bufferSizeToolStripMenuItem.Name = "bufferSizeToolStripMenuItem";
-            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.bufferSizeToolStripMenuItem.Text = "Buffer Size";
             // 
             // TSMI_buffer_512
             // 
             this.TSMI_buffer_512.Name = "TSMI_buffer_512";
-            this.TSMI_buffer_512.Size = new System.Drawing.Size(109, 22);
+            this.TSMI_buffer_512.Size = new System.Drawing.Size(114, 26);
             this.TSMI_buffer_512.Text = "512 KB";
             this.TSMI_buffer_512.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -255,28 +263,28 @@
             this.TSMI_buffer_1024.Checked = true;
             this.TSMI_buffer_1024.CheckState = System.Windows.Forms.CheckState.Checked;
             this.TSMI_buffer_1024.Name = "TSMI_buffer_1024";
-            this.TSMI_buffer_1024.Size = new System.Drawing.Size(109, 22);
+            this.TSMI_buffer_1024.Size = new System.Drawing.Size(114, 26);
             this.TSMI_buffer_1024.Text = "1 MB";
             this.TSMI_buffer_1024.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // TSMI_buffer_2048
             // 
             this.TSMI_buffer_2048.Name = "TSMI_buffer_2048";
-            this.TSMI_buffer_2048.Size = new System.Drawing.Size(109, 22);
+            this.TSMI_buffer_2048.Size = new System.Drawing.Size(114, 26);
             this.TSMI_buffer_2048.Text = "2 MB";
             this.TSMI_buffer_2048.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // TSMI_buffer_4096
             // 
             this.TSMI_buffer_4096.Name = "TSMI_buffer_4096";
-            this.TSMI_buffer_4096.Size = new System.Drawing.Size(109, 22);
+            this.TSMI_buffer_4096.Size = new System.Drawing.Size(114, 26);
             this.TSMI_buffer_4096.Text = "4 MB";
             this.TSMI_buffer_4096.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // TSMI_buffer_8192
             // 
             this.TSMI_buffer_8192.Name = "TSMI_buffer_8192";
-            this.TSMI_buffer_8192.Size = new System.Drawing.Size(109, 22);
+            this.TSMI_buffer_8192.Size = new System.Drawing.Size(114, 26);
             this.TSMI_buffer_8192.Text = "8 MB";
             this.TSMI_buffer_8192.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -289,7 +297,7 @@
             this.tSMI_retries_150,
             this.tSMI_retries_300});
             this.maximumRetriesToolStripMenuItem.Name = "maximumRetriesToolStripMenuItem";
-            this.maximumRetriesToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.maximumRetriesToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.maximumRetriesToolStripMenuItem.Text = "Maximum Retries";
             // 
             // tSMI_retries_Infinity
@@ -297,35 +305,35 @@
             this.tSMI_retries_Infinity.Checked = true;
             this.tSMI_retries_Infinity.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tSMI_retries_Infinity.Name = "tSMI_retries_Infinity";
-            this.tSMI_retries_Infinity.Size = new System.Drawing.Size(111, 22);
+            this.tSMI_retries_Infinity.Size = new System.Drawing.Size(119, 26);
             this.tSMI_retries_Infinity.Text = "Infinity";
             this.tSMI_retries_Infinity.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // tSMI_retries_20
             // 
             this.tSMI_retries_20.Name = "tSMI_retries_20";
-            this.tSMI_retries_20.Size = new System.Drawing.Size(111, 22);
+            this.tSMI_retries_20.Size = new System.Drawing.Size(119, 26);
             this.tSMI_retries_20.Text = "20";
             this.tSMI_retries_20.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // tSMI_retries_50
             // 
             this.tSMI_retries_50.Name = "tSMI_retries_50";
-            this.tSMI_retries_50.Size = new System.Drawing.Size(111, 22);
+            this.tSMI_retries_50.Size = new System.Drawing.Size(119, 26);
             this.tSMI_retries_50.Text = "50";
             this.tSMI_retries_50.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // tSMI_retries_150
             // 
             this.tSMI_retries_150.Name = "tSMI_retries_150";
-            this.tSMI_retries_150.Size = new System.Drawing.Size(111, 22);
+            this.tSMI_retries_150.Size = new System.Drawing.Size(119, 26);
             this.tSMI_retries_150.Text = "150";
             this.tSMI_retries_150.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
             // tSMI_retries_300
             // 
             this.tSMI_retries_300.Name = "tSMI_retries_300";
-            this.tSMI_retries_300.Size = new System.Drawing.Size(111, 22);
+            this.tSMI_retries_300.Size = new System.Drawing.Size(119, 26);
             this.tSMI_retries_300.Text = "300";
             this.tSMI_retries_300.Click += new System.EventHandler(this.MaxRetrytoolStripMenuItem_Click);
             // 
@@ -335,13 +343,13 @@
             this.enabledToolStripMenuItem,
             this.disabledToolStripMenuItem});
             this.uploadCompletionNotificationToolStripMenuItem.Name = "uploadCompletionNotificationToolStripMenuItem";
-            this.uploadCompletionNotificationToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.uploadCompletionNotificationToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.uploadCompletionNotificationToolStripMenuItem.Text = "Upload completion notification";
             // 
             // enabledToolStripMenuItem
             // 
             this.enabledToolStripMenuItem.Name = "enabledToolStripMenuItem";
-            this.enabledToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.enabledToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.enabledToolStripMenuItem.Text = "Enabled";
             this.enabledToolStripMenuItem.Click += new System.EventHandler(this.uploadCompletionNotificationToolStripMenuItem_Click);
             // 
@@ -350,22 +358,28 @@
             this.disabledToolStripMenuItem.Checked = true;
             this.disabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.disabledToolStripMenuItem.Name = "disabledToolStripMenuItem";
-            this.disabledToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.disabledToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.disabledToolStripMenuItem.Text = "Disabled";
             this.disabledToolStripMenuItem.Click += new System.EventHandler(this.uploadCompletionNotificationToolStripMenuItem_Click);
+            // 
+            // languageToolStripMenuItem
+            // 
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
+            this.languageToolStripMenuItem.Text = "Language";
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.consoleOutputToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 27);
+            this.viewToolStripMenuItem.Text = "VIEW";
             // 
             // consoleOutputToolStripMenuItem
             // 
             this.consoleOutputToolStripMenuItem.Name = "consoleOutputToolStripMenuItem";
-            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(154, 26);
             this.consoleOutputToolStripMenuItem.Text = "Show Console";
             this.consoleOutputToolStripMenuItem.Click += new System.EventHandler(this.consoleOutputToolStripMenuItem_Click);
             // 
@@ -375,28 +389,29 @@
             this.instructionsToolStripMenuItem1,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 27);
+            this.helpToolStripMenuItem.Text = "HELP";
             // 
             // instructionsToolStripMenuItem1
             // 
             this.instructionsToolStripMenuItem1.Name = "instructionsToolStripMenuItem1";
-            this.instructionsToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.instructionsToolStripMenuItem1.Size = new System.Drawing.Size(180, 26);
             this.instructionsToolStripMenuItem1.Text = "Instructions";
             this.instructionsToolStripMenuItem1.Click += new System.EventHandler(this.instructionsToolStripMenuItem1_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // cancelToolStripMenuItem
             // 
             this.cancelToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.cancelToolStripMenuItem.Font = new System.Drawing.Font("Reem Kufi", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
-            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(53, 27);
             this.cancelToolStripMenuItem.Text = "Close";
             this.cancelToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -460,12 +475,6 @@
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(557, 248);
             this.panelContent.TabIndex = 12;
-            // 
-            // languageToolStripMenuItem
-            // 
-            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.languageToolStripMenuItem.Text = "Language";
             // 
             // frmMain
             // 

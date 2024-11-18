@@ -35,8 +35,8 @@ namespace ResumeXfer
             menuStrip1.BackColor = BackColor;
 
             // Set other properties (like text and font)
-            browseLocalFileButton.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            browseRemoteFolderButton.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            browseLocalFileButton.Font = new Font("Reem Kufi", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            browseRemoteFolderButton.Font = new Font("Reem Kufi", 10F, FontStyle.Bold, GraphicsUnit.Point);
 
             // Add hover effect
             browseLocalFileButton.MouseEnter += (sender, e) => {
@@ -58,10 +58,21 @@ namespace ResumeXfer
         }
         private void BrowseLocalFileButton_Click(object sender, EventArgs e)
         {
+            using (var browseFileDialog = new frmBrowseFileDialog())
+            {
+                browseFileDialog.StartPosition = FormStartPosition.Manual;
+                browseFileDialog.Location = new Point(Bottom, Bottom + uploadButton.Height);
+                if (browseFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    localFilePathTextBox.Text = browseFileDialog.SelectedFilePath;
+                }
+            }
+            /*
             using (var openFileDialog = new OpenFileDialog()) 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                     localFilePathTextBox.Text = openFileDialog.FileName;
             ValidateUploadButton();
+            */
         }
 
         private void BrowseRemoteFolderButton_Click(object sender, EventArgs e)

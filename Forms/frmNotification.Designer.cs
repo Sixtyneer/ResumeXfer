@@ -35,6 +35,7 @@
             this.rtbMessage = new System.Windows.Forms.RichTextBox();
             this.panelTop = new System.Windows.Forms.Panel();
             this.lblHeader = new System.Windows.Forms.Label();
+            this.panelText = new System.Windows.Forms.Panel();
             this.panelMain.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.SuspendLayout();
@@ -44,9 +45,10 @@
             this.panelMain.BackColor = System.Drawing.Color.Transparent;
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelMain.Controls.Add(this.btnNo);
+            this.panelMain.Controls.Add(this.rtbMessage);
+            this.panelMain.Controls.Add(this.panelText);
             this.panelMain.Controls.Add(this.btnYes);
             this.panelMain.Controls.Add(this.btnOK);
-            this.panelMain.Controls.Add(this.rtbMessage);
             this.panelMain.Controls.Add(this.panelTop);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
@@ -58,6 +60,7 @@
             // 
             this.btnNo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.btnNo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnNo.Font = new System.Drawing.Font("Reem Kufi", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnNo.ForeColor = System.Drawing.Color.White;
             this.btnNo.Location = new System.Drawing.Point(177, 102);
             this.btnNo.Margin = new System.Windows.Forms.Padding(0);
@@ -72,6 +75,7 @@
             // 
             this.btnYes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.btnYes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnYes.Font = new System.Drawing.Font("Reem Kufi", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnYes.ForeColor = System.Drawing.Color.White;
             this.btnYes.Location = new System.Drawing.Point(0, 102);
             this.btnYes.Margin = new System.Windows.Forms.Padding(0);
@@ -87,6 +91,7 @@
             this.btnOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.btnOK.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnOK.Font = new System.Drawing.Font("Reem Kufi", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnOK.ForeColor = System.Drawing.Color.White;
             this.btnOK.Location = new System.Drawing.Point(0, 102);
             this.btnOK.Margin = new System.Windows.Forms.Padding(0);
@@ -102,14 +107,15 @@
             this.rtbMessage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.rtbMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbMessage.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.rtbMessage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rtbMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbMessage.Font = new System.Drawing.Font("Reem Kufi", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rtbMessage.ForeColor = System.Drawing.Color.White;
             this.rtbMessage.Location = new System.Drawing.Point(0, 37);
             this.rtbMessage.Margin = new System.Windows.Forms.Padding(5);
             this.rtbMessage.Name = "rtbMessage";
             this.rtbMessage.ReadOnly = true;
             this.rtbMessage.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
-            this.rtbMessage.Size = new System.Drawing.Size(352, 60);
+            this.rtbMessage.Size = new System.Drawing.Size(352, 65);
             this.rtbMessage.TabIndex = 2;
             this.rtbMessage.Text = "Error, cannot load the message!";
             // 
@@ -118,6 +124,7 @@
             this.panelTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelTop.Controls.Add(this.lblHeader);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Font = new System.Drawing.Font("Reem Kufi", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(352, 37);
@@ -129,10 +136,18 @@
             this.lblHeader.ForeColor = System.Drawing.Color.White;
             this.lblHeader.Location = new System.Drawing.Point(9, 6);
             this.lblHeader.Name = "lblHeader";
-            this.lblHeader.Size = new System.Drawing.Size(190, 13);
+            this.lblHeader.Size = new System.Drawing.Size(232, 23);
             this.lblHeader.TabIndex = 0;
             this.lblHeader.Text = "Error, cannot load the header message";
             this.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelText
+            // 
+            this.panelText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelText.Location = new System.Drawing.Point(0, 37);
+            this.panelText.Name = "panelText";
+            this.panelText.Size = new System.Drawing.Size(352, 65);
+            this.panelText.TabIndex = 5;
             // 
             // frmNotification
             // 
@@ -145,6 +160,7 @@
             this.Name = "frmNotification";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmNotification";
+            this.Load += new System.EventHandler(this.frmNotification_Load);
             this.panelMain.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
@@ -161,5 +177,6 @@
         private System.Windows.Forms.RichTextBox rtbMessage;
         private System.Windows.Forms.Button btnNo;
         private System.Windows.Forms.Button btnYes;
+        private System.Windows.Forms.Panel panelText;
     }
 }

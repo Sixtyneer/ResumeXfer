@@ -70,6 +70,12 @@
     <Compile Include="Forms\frmAboutBox.Designer.cs">
       <DependentUpon>frmAboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmBrowseFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBrowseFileDialog.Designer.cs">
+      <DependentUpon>frmBrowseFileDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmInstructions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,7 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DraggableHelper.cs" />
+    <Compile Include="Helpers\ListViewColumnSorter.cs" />
     <Compile Include="Interfaces\IDraggable.cs" />
     <Compile Include="MainForm.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -106,6 +113,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\frmAboutBox.resx">
       <DependentUpon>frmAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBrowseFileDialog.resx">
+      <DependentUpon>frmBrowseFileDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmInstructions.resx">
       <DependentUpon>frmInstructions.cs</DependentUpon>
