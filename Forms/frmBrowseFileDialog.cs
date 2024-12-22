@@ -1,17 +1,12 @@
 ﻿using ResumeXfer.Helpers;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ListView = System.Windows.Forms.ListView;
 using SortOrder = System.Windows.Forms.SortOrder;
 
 namespace ResumeXfer.Forms
@@ -25,7 +20,7 @@ namespace ResumeXfer.Forms
         private readonly long exa = (long)Math.Pow(1024, 4);
         public frmBrowseFileDialog()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             _draggable = new DraggableHelper();
             _draggable.MoveingForm(this);
         }
@@ -44,9 +39,6 @@ namespace ResumeXfer.Forms
             FilelistView.Columns[0].Width = (int)(totalWidth * 0.64); // 60% for the FileName column
             FilelistView.Columns[1].Width = (int)(totalWidth * 0.18); // 20% for the Size column
             FilelistView.Columns[2].Width = (int)(totalWidth * 0.18); // 20% for the Type column
-            vScrollBar1.Width = 2;
-            vScrollBar1.BackColor = Color.Gray;
-            vScrollBar1.ForeColor = Color.Black;
         }
 
         private void treeView1_BeforeExpand(object sender, TreeViewCancelEventArgs e)
@@ -61,7 +53,7 @@ namespace ResumeXfer.Forms
                     foreach (var dir in dirs)
                     {
                         TreeNode node = new TreeNode(Path.GetFileName(dir)) { Tag = dir };
-                        node.Nodes.Add("..."); 
+                        node.Nodes.Add("...");
                         e.Node.Nodes.Add(node);
                     }
                 }
@@ -69,7 +61,7 @@ namespace ResumeXfer.Forms
                 {
                     frmNotification.ShowNotification("Unauthorized Access", "Error", false);
                 }
-                catch(Exception ex) { frmNotification.ShowNotification(ex.Message, "Error", false); }
+                catch (Exception ex) { frmNotification.ShowNotification(ex.Message, "Error", false); }
             }
         }
 
@@ -97,10 +89,9 @@ namespace ResumeXfer.Forms
             }
             catch (Exception ex) { frmNotification.ShowNotification(ex.Message, "Error", false); }
         }
-
         private void treeView1_DoubleClick(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -117,17 +108,17 @@ namespace ResumeXfer.Forms
         {
             Close();
         }
-        private string CalculateFileSize(double fileSize = 0.0) 
+        private string CalculateFileSize(double fileSize = 0.0)
         {
-            if (fileSize <= 1024)  
+            if (fileSize <= 1024)
                 return fileSize.ToString() + " B";
-            if (fileSize <= mega)  
+            if (fileSize <= mega)
                 return Math.Round(fileSize / 1024, 2).ToString() + " KB";
             if (fileSize <= giga)
                 return Math.Round(fileSize / mega, 2).ToString() + " MB";
             if (fileSize <= exa)
                 return Math.Round(fileSize / giga, 2).ToString() + " GB";
-            else 
+            else
                 return Math.Round(fileSize / exa, 2).ToString() + " EB";
         }
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
@@ -146,18 +137,17 @@ namespace ResumeXfer.Forms
                     item.Tag = fi.FullName;
                     FilelistView.Items.Add(item);
                 }
-                
             }
             catch (UnauthorizedAccessException)
             {
                 frmNotification.ShowNotification("Unauthorized Access", "Error", false);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                frmNotification.ShowNotification(ex.Message, "Error", false); 
+                frmNotification.ShowNotification(ex.Message, "Error", false);
             }
         }
-       private void listView1_DoubleClick(object sender, EventArgs e)
+        private void listView1_DoubleClick(object sender, EventArgs e)
         {
             if (FilelistView.SelectedItems.Count > 0)
             {
@@ -191,9 +181,9 @@ namespace ResumeXfer.Forms
             }
             catch (Exception ex)
             {
-               frmNotification.ShowNotification(ex.Message, "Error", false);
+                frmNotification.ShowNotification(ex.Message, "Error", false);
             }
-            
+
         }
 
         private void FilelistView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
@@ -215,16 +205,28 @@ namespace ResumeXfer.Forms
 
         private void FilelistView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
-            // Set default background color
-            Brush backgroundBrush = new SolidBrush(Color.FromArgb(20, 20, 20));
-            Brush textBrush = Brushes.White;
-            if (_hoveredItem == e.Item)
+            try
             {
-                backgroundBrush = Brushes.Gray; // Lighter color for hover effect
+                // Set default background color
+                Brush backgroundBrush = (e.ItemIndex % 2 == 0) ? new SolidBrush(Color.FromArgb(30, 30, 30)) : new SolidBrush(Color.FromArgb(20, 20, 20));
+                Brush textBrush = Brushes.White;
+                if (_hoveredItem == e.Item)
+                {
+                    backgroundBrush = Brushes.Gray; // Lighter color for hover effect
+                }
+                // Draw the background
+                e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+                e.Graphics.DrawString(e.SubItem.Text, e.Item.Font, textBrush, e.Bounds);
             }
-            // Draw the background
-            e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
-            e.Graphics.DrawString(e.SubItem.Text, e.Item.Font, textBrush, e.Bounds);
+            catch (Exception ex)
+            {
+                frmNotification
+                    .ShowNotification(ex.Message, "Error", false);
+            }
+            finally
+            {
+                
+            }
         }
         private ListViewItem _hoveredItem;
         protected override CreateParams CreateParams
@@ -261,14 +263,8 @@ namespace ResumeXfer.Forms
         int remainingWidth = 0;
         private void FilelistView_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
         {
-                e.Cancel = true;
-                e.NewWidth = FilelistView.Columns[e.ColumnIndex].Width;
-        }
-
-        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
-        {
-            panelListView.VerticalScroll.Value = vScrollBar1.Value;
-            panelListView.PerformLayout();
+            e.Cancel = true;
+            e.NewWidth = FilelistView.Columns[e.ColumnIndex].Width;
         }
     }
 }

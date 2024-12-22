@@ -44,11 +44,12 @@ namespace ResumeXfer.Forms
 
             // Create and display a new instance
             _openInstance = new frmNotification(message, headermessage, buttons);
-            _openInstance.Show();
+            _openInstance.ShowDialog();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.OK;
             Close();
         }
         private void btnYes_Click(object sender, EventArgs e)

@@ -61,7 +61,24 @@ namespace ResumeXfer
             using (var browseFileDialog = new frmBrowseFileDialog())
             {
                 browseFileDialog.StartPosition = FormStartPosition.Manual;
-                browseFileDialog.Location = new Point(Bottom, Bottom + uploadButton.Height);
+
+                // Get the screen where the caller form is currently located
+                Screen callerScreen = Screen.FromControl(this);
+
+                int FormCenterX = Left + (Width / 2);
+                int newFormWidth = 550;
+                int newFormLeft = FormCenterX - (newFormWidth / 2);
+                int newFormTop = Bottom;
+
+                // Ensure the new form stays visible on the screen of the caller form
+                int screenLeft = callerScreen.WorkingArea.Left;
+                int screenWidth = callerScreen.WorkingArea.Width;
+
+                if (newFormLeft < screenLeft) newFormLeft = screenLeft;
+                if (newFormLeft + newFormWidth > screenLeft + screenWidth) newFormLeft = screenLeft + screenWidth - newFormWidth;
+
+                browseFileDialog.Location = new Point(newFormLeft, newFormTop);
+
                 if (browseFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     localFilePathTextBox.Text = browseFileDialog.SelectedFilePath;
@@ -87,6 +104,8 @@ namespace ResumeXfer
         private string originalLocalFilePath = string.Empty; // Store the original file path for comparison
         private async void UploadButton_Click(object sender, EventArgs e)
         {
+            if (popupForm != null) popupForm.FadeOutPopup();
+
             localFilePath = localFilePathTextBox.Text;
             remoteFolderPath = remoteFilePathTextBox.Text;
 
@@ -241,16 +260,16 @@ namespace ResumeXfer
 
                             speedLabel.Invoke((Action)(() =>
                             {
-                                if (speedKilobytes < 15000) speedLabel.Text = $"Upload speed: {speedKilobytes:F2} KB/s";
-                                if (speedKilobytes >= 15000 && speedKilobytes < 800000) speedLabel.Text = $"Upload speed: {speedKilobytes / 1024.0:F2} MB/s";
-                                if (speedKilobytes >= 800000) speedLabel.Text = $"Upload speed: {speedKilobytes / 1048576.0:F2} GB/s";
+                                if (speedKilobytes < 1024) speedLabel.Text = $"Upload speed: {speedKilobytes:F2} KB/s";
+                                if (speedKilobytes >= 1024 && speedKilobytes < 1048576) speedLabel.Text = $"Upload speed: {speedKilobytes / 1024.0:F2} MB/s";
+                                if (speedKilobytes >= 1048576) speedLabel.Text = $"Upload speed: {speedKilobytes / 1048576.0:F2} GB/s";
                             }));
 
                             progressLabel.Invoke((Action)(() =>
                             {
-                                if (speedKilobytes < 15000) progressLabel.Text = $"Progress: {totalKilobytesUploaded:F2} KB / {totalKilobytes:F2} KB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
-                                if (speedKilobytes < 800000 && speedKilobytes >= 15000) speedLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/1024.0:F2} MB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
-                                if (speedKilobytes >= 800000) speedLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/ 1048576.0:F2} GB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
+                                if (totalKilobytes < 15000) progressLabel.Text = $"Progress: {totalKilobytesUploaded} KB / {totalKilobytes} KB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
+                                if (totalKilobytes < 800000 && speedKilobytes >= 15000) progressLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/1024.0:F2} MB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
+                                if (totalKilobytes >= 800000) progressLabel.Text = $"Progress: {totalKilobytesUploaded/1024.0:F2} MB / {totalKilobytes/ 1048576.0:F2} GB uploaded | ({Math.Round(totalKilobytesUploaded / totalKilobytes, 3) * 100})%";
                             }));
 
                         }
@@ -371,6 +390,12 @@ namespace ResumeXfer
                     clickedItem.Checked = true;
                     switch (clickedItem.Text)
                     {
+                        case "1 KB": buffersize = 1024; break;
+                        case "4 KB": buffersize = 4 * 1024; break;
+                        case "8 KB": buffersize = 8 * 1024; break;
+                        case "32 KB": buffersize = 32 * 1024; break;
+                        case "128 KB": buffersize = 128 * 1024; break;
+                        case "256 KB": buffersize = 256 * 1024; break;
                         case "512 KB": buffersize = 512 * 1024; break;
                         case "2 MB": buffersize = 2 * 1024 * 1024; break;
                         case "4 MB": buffersize = 4 * 1024 * 1024; break;

@@ -38,7 +38,6 @@
             this.FileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.FileSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.FileType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.panelFull.SuspendLayout();
             this.panelTreeView.SuspendLayout();
             this.panelListView.SuspendLayout();
@@ -62,7 +61,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
-            this.button2.Text = "button2";
+            this.button2.Text = "Close";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -93,7 +92,7 @@
             this.treeView1.ForeColor = System.Drawing.Color.White;
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(236, 444);
+            this.treeView1.Size = new System.Drawing.Size(202, 444);
             this.treeView1.TabIndex = 0;
             this.treeView1.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeExpand);
             this.treeView1.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterExpand);
@@ -102,9 +101,9 @@
             // 
             // panelListView
             // 
-            this.panelListView.Controls.Add(this.vScrollBar1);
+            this.panelListView.AutoScroll = true;
             this.panelListView.Controls.Add(this.FilelistView);
-            this.panelListView.Location = new System.Drawing.Point(245, 12);
+            this.panelListView.Location = new System.Drawing.Point(211, 12);
             this.panelListView.Name = "panelListView";
             this.panelListView.Size = new System.Drawing.Size(550, 400);
             this.panelListView.TabIndex = 0;
@@ -131,7 +130,6 @@
             this.FilelistView.MultiSelect = false;
             this.FilelistView.Name = "FilelistView";
             this.FilelistView.OwnerDraw = true;
-            this.FilelistView.Scrollable = false;
             this.FilelistView.Size = new System.Drawing.Size(550, 400);
             this.FilelistView.TabIndex = 0;
             this.FilelistView.UseCompatibleStateImageBehavior = false;
@@ -146,25 +144,14 @@
             // FileName
             // 
             this.FileName.Text = "File Name";
-            this.FileName.Width = 350;
             // 
             // FileSize
             // 
             this.FileSize.Text = "Size";
-            this.FileSize.Width = 100;
             // 
             // FileType
             // 
             this.FileType.Text = "Type";
-            this.FileType.Width = 100;
-            // 
-            // vScrollBar1
-            // 
-            this.vScrollBar1.Location = new System.Drawing.Point(537, 28);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(10, 372);
-            this.vScrollBar1.TabIndex = 1;
-            this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
             // 
             // frmBrowseFileDialog
             // 
@@ -196,6 +183,5 @@
         private System.Windows.Forms.ColumnHeader FileName;
         private System.Windows.Forms.ColumnHeader FileSize;
         private System.Windows.Forms.ColumnHeader FileType;
-        private System.Windows.Forms.VScrollBar vScrollBar1;
     }
 }

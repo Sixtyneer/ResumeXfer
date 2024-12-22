@@ -44,6 +44,11 @@
             this.selectRemoteFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.bufferSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kBToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kBToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kBToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kBToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_buffer_512 = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_buffer_1024 = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_buffer_2048 = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,11 +133,11 @@
             this.browseLocalFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.browseLocalFileButton.Font = new System.Drawing.Font("Reem Kufi", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.browseLocalFileButton.ForeColor = System.Drawing.Color.White;
-            this.browseLocalFileButton.Location = new System.Drawing.Point(12, 14);
+            this.browseLocalFileButton.Location = new System.Drawing.Point(13, 14);
             this.browseLocalFileButton.Name = "browseLocalFileButton";
-            this.browseLocalFileButton.Size = new System.Drawing.Size(154, 37);
+            this.browseLocalFileButton.Size = new System.Drawing.Size(201, 37);
             this.browseLocalFileButton.TabIndex = 5;
-            this.browseLocalFileButton.Text = "Browse Local File";
+            this.browseLocalFileButton.Text = "Browse Source File";
             this.browseLocalFileButton.UseVisualStyleBackColor = false;
             this.browseLocalFileButton.Click += new System.EventHandler(this.BrowseLocalFileButton_Click);
             // 
@@ -145,9 +150,9 @@
             this.browseRemoteFolderButton.ForeColor = System.Drawing.Color.White;
             this.browseRemoteFolderButton.Location = new System.Drawing.Point(309, 14);
             this.browseRemoteFolderButton.Name = "browseRemoteFolderButton";
-            this.browseRemoteFolderButton.Size = new System.Drawing.Size(161, 37);
+            this.browseRemoteFolderButton.Size = new System.Drawing.Size(201, 37);
             this.browseRemoteFolderButton.TabIndex = 6;
-            this.browseRemoteFolderButton.Text = "Select Remote Folder";
+            this.browseRemoteFolderButton.Text = "Select Destenation Folder";
             this.browseRemoteFolderButton.UseVisualStyleBackColor = false;
             this.browseRemoteFolderButton.Click += new System.EventHandler(this.BrowseRemoteFolderButton_Click);
             // 
@@ -242,6 +247,11 @@
             // bufferSizeToolStripMenuItem
             // 
             this.bufferSizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kBToolStripMenuItem4,
+            this.kBToolStripMenuItem3,
+            this.kBToolStripMenuItem2,
+            this.kBToolStripMenuItem1,
+            this.kBToolStripMenuItem,
             this.TSMI_buffer_512,
             this.TSMI_buffer_1024,
             this.TSMI_buffer_2048,
@@ -251,10 +261,45 @@
             this.bufferSizeToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.bufferSizeToolStripMenuItem.Text = "Buffer Size";
             // 
+            // kBToolStripMenuItem4
+            // 
+            this.kBToolStripMenuItem4.Name = "kBToolStripMenuItem4";
+            this.kBToolStripMenuItem4.Size = new System.Drawing.Size(117, 26);
+            this.kBToolStripMenuItem4.Text = "1 KB";
+            this.kBToolStripMenuItem4.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
+            // kBToolStripMenuItem3
+            // 
+            this.kBToolStripMenuItem3.Name = "kBToolStripMenuItem3";
+            this.kBToolStripMenuItem3.Size = new System.Drawing.Size(117, 26);
+            this.kBToolStripMenuItem3.Text = "4 KB";
+            this.kBToolStripMenuItem3.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
+            // kBToolStripMenuItem2
+            // 
+            this.kBToolStripMenuItem2.Name = "kBToolStripMenuItem2";
+            this.kBToolStripMenuItem2.Size = new System.Drawing.Size(117, 26);
+            this.kBToolStripMenuItem2.Text = "32 KB";
+            this.kBToolStripMenuItem2.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
+            // kBToolStripMenuItem1
+            // 
+            this.kBToolStripMenuItem1.Name = "kBToolStripMenuItem1";
+            this.kBToolStripMenuItem1.Size = new System.Drawing.Size(117, 26);
+            this.kBToolStripMenuItem1.Text = "128 KB";
+            this.kBToolStripMenuItem1.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
+            // kBToolStripMenuItem
+            // 
+            this.kBToolStripMenuItem.Name = "kBToolStripMenuItem";
+            this.kBToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
+            this.kBToolStripMenuItem.Text = "256 KB";
+            this.kBToolStripMenuItem.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
+            // 
             // TSMI_buffer_512
             // 
             this.TSMI_buffer_512.Name = "TSMI_buffer_512";
-            this.TSMI_buffer_512.Size = new System.Drawing.Size(114, 26);
+            this.TSMI_buffer_512.Size = new System.Drawing.Size(117, 26);
             this.TSMI_buffer_512.Text = "512 KB";
             this.TSMI_buffer_512.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -263,28 +308,28 @@
             this.TSMI_buffer_1024.Checked = true;
             this.TSMI_buffer_1024.CheckState = System.Windows.Forms.CheckState.Checked;
             this.TSMI_buffer_1024.Name = "TSMI_buffer_1024";
-            this.TSMI_buffer_1024.Size = new System.Drawing.Size(114, 26);
+            this.TSMI_buffer_1024.Size = new System.Drawing.Size(117, 26);
             this.TSMI_buffer_1024.Text = "1 MB";
             this.TSMI_buffer_1024.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // TSMI_buffer_2048
             // 
             this.TSMI_buffer_2048.Name = "TSMI_buffer_2048";
-            this.TSMI_buffer_2048.Size = new System.Drawing.Size(114, 26);
+            this.TSMI_buffer_2048.Size = new System.Drawing.Size(117, 26);
             this.TSMI_buffer_2048.Text = "2 MB";
             this.TSMI_buffer_2048.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // TSMI_buffer_4096
             // 
             this.TSMI_buffer_4096.Name = "TSMI_buffer_4096";
-            this.TSMI_buffer_4096.Size = new System.Drawing.Size(114, 26);
+            this.TSMI_buffer_4096.Size = new System.Drawing.Size(117, 26);
             this.TSMI_buffer_4096.Text = "4 MB";
             this.TSMI_buffer_4096.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
             // TSMI_buffer_8192
             // 
             this.TSMI_buffer_8192.Name = "TSMI_buffer_8192";
-            this.TSMI_buffer_8192.Size = new System.Drawing.Size(114, 26);
+            this.TSMI_buffer_8192.Size = new System.Drawing.Size(117, 26);
             this.TSMI_buffer_8192.Text = "8 MB";
             this.TSMI_buffer_8192.Click += new System.EventHandler(this.bufferSizeToolStripMenuItem_Click);
             // 
@@ -446,7 +491,7 @@
             this.uploadButton.Enabled = false;
             this.uploadButton.FlatAppearance.BorderSize = 0;
             this.uploadButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.uploadButton.Location = new System.Drawing.Point(462, 118);
+            this.uploadButton.Location = new System.Drawing.Point(473, 102);
             this.uploadButton.Margin = new System.Windows.Forms.Padding(0);
             this.uploadButton.Name = "uploadButton";
             this.uploadButton.Size = new System.Drawing.Size(68, 45);
@@ -546,6 +591,11 @@
         private System.Windows.Forms.ToolStripMenuItem disabledToolStripMenuItem;
         private System.Windows.Forms.Panel panelContent;
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kBToolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem kBToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem kBToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem kBToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem kBToolStripMenuItem;
     }
 }
 
