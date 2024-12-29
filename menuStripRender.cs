@@ -13,10 +13,17 @@ namespace ResumeXfer
         protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
         {
             Rectangle itemRect = new Rectangle(Point.Empty, e.Item.Size);
-
+            
             if (e.Item.Selected)
             {
-                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(50, 50, 50)), itemRect);
+                if (e.Item.Name == "cancelToolStripMenuItem")
+                {
+                    e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(201, 4, 28)), itemRect);
+                }
+                else
+                {
+                    e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(50, 50, 50)), itemRect);
+                }
             }
             else
             {
