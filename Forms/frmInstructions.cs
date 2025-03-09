@@ -16,7 +16,17 @@ namespace ResumeXfer.Forms
             _draggable = new DraggableHelper();
             _draggable.MoveingForm(this); // Makes the form draggable
         }
-
+        private static frmInstructions _openInstance;
+        public void ShowInstructions() 
+        {
+            if (_openInstance != null)
+            {
+                _openInstance.Close();
+                _openInstance.Dispose();
+            }
+            _openInstance = new frmInstructions();
+            _openInstance.Show();
+        }
         private void buttonStep_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;

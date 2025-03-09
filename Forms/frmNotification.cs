@@ -31,20 +31,20 @@ namespace ResumeXfer.Forms
         }
 
         // Static instance to track the currently open form
-        private static frmNotification _openInstance;
+        private static frmNotification _openNotificationInstance;
         // Method to show the form, managing the static instance
         public static void ShowNotification(string message, string headermessage, bool buttons = true)
         {
             // Close and dispose of any currently open instance
-            if (_openInstance != null)
+            if (_openNotificationInstance != null)
             {
-                _openInstance.Close();
-                _openInstance.Dispose();
+                _openNotificationInstance.Close();
+                _openNotificationInstance.Dispose();
             }
 
             // Create and display a new instance
-            _openInstance = new frmNotification(message, headermessage, buttons);
-            _openInstance.ShowDialog();
+            _openNotificationInstance = new frmNotification(message, headermessage, buttons);
+            _openNotificationInstance.ShowDialog();
         }
 
         private void btnOK_Click(object sender, EventArgs e)

@@ -36,9 +36,9 @@ namespace ResumeXfer.Forms
             }
             int totalWidth = FilelistView.ClientSize.Width;
 
-            FilelistView.Columns[0].Width = (int)(totalWidth * 0.64); // 60% for the FileName column
-            FilelistView.Columns[1].Width = (int)(totalWidth * 0.18); // 20% for the Size column
-            FilelistView.Columns[2].Width = (int)(totalWidth * 0.18); // 20% for the Type column
+            FilelistView.Columns[0].Width = (int)(totalWidth * 0.64); // 64% for the FileName column
+            FilelistView.Columns[1].Width = (int)(totalWidth * 0.18); // 18% for the Size column
+            FilelistView.Columns[2].Width = (int)(totalWidth * 0.18); // 18% for the Type column
         }
 
         private void treeView1_BeforeExpand(object sender, TreeViewCancelEventArgs e)

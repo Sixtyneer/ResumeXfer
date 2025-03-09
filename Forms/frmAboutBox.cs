@@ -102,7 +102,21 @@ namespace ResumeXfer.Forms
             }
         }
         #endregion
+        private static frmAboutBox _openAboutInstance;
+        public void ShowAboutBox()
+        {
+            // Close and dispose of any currently open instance
+            if (_openAboutInstance != null)
+            {
+                _openAboutInstance.Close();
+                _openAboutInstance.Dispose();
+            }
 
+            // Create and display a new instance
+            _openAboutInstance = new frmAboutBox();
+            _openAboutInstance.Show();
+        }
+           
         private void okButton_Click(object sender, EventArgs e) => Close();
 
         frmPopup frmPopup = new frmPopup();

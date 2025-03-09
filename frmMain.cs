@@ -84,12 +84,6 @@ namespace ResumeXfer
                     localFilePathTextBox.Text = browseFileDialog.SelectedFilePath;
                 }
             }
-            /*
-            using (var openFileDialog = new OpenFileDialog()) 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    localFilePathTextBox.Text = openFileDialog.FileName;
-            ValidateUploadButton();
-            */
         }
 
         private void BrowseRemoteFolderButton_Click(object sender, EventArgs e)
@@ -481,7 +475,7 @@ namespace ResumeXfer
                 if (item == clickedItem)
                 {
                     clickedItem.Checked = true;
-                    isNotificationEnabled = clickedItem.Text == "Enabled" ? true : false;
+                    isNotificationEnabled = clickedItem.Text == "Enabled";
                 }
                 else item.Checked = false;
             }
@@ -489,12 +483,12 @@ namespace ResumeXfer
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new frmAboutBox().ShowDialog();
+            new frmAboutBox().ShowAboutBox();
         }
 
         private void instructionsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            new frmInstructions().Show();
+            new frmInstructions().ShowInstructions();
         }
     }
 }
